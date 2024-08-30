@@ -5,12 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ManageVehicleComponent } from './components/manage-vehicle/manage-vehicle.component';
+import { ManageMaintanceComponent } from './components/manage-maintance/manage-maintance.component';
+import { ManageRentServiceComponent } from './components/manage-rent-service/manage-rent-service.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    ManageVehicleComponent,
+    ManageMaintanceComponent,
+    ManageRentServiceComponent
   ],
   imports: [
     BrowserModule,
