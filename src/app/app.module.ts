@@ -9,6 +9,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ManageVehicleComponent } from './components/manage-vehicle/manage-vehicle.component';
 import { ManageMaintanceComponent } from './components/manage-maintance/manage-maintance.component';
 import { ManageRentServiceComponent } from './components/manage-rent-service/manage-rent-service.component';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
+import { AddRentComponent } from './components/add-rent/add-rent.component';
+import { AddMaintanceComponent } from './components/add-maintance/add-maintance.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +23,18 @@ import { ManageRentServiceComponent } from './components/manage-rent-service/man
     NavbarComponent,
     ManageVehicleComponent,
     ManageMaintanceComponent,
-    ManageRentServiceComponent
+    ManageRentServiceComponent,
+    AddVehicleComponent,
+    AddRentComponent,
+    AddMaintanceComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule, 
+    FormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

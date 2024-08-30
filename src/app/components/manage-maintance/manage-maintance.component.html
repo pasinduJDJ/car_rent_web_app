@@ -1,1 +1,109 @@
-<p>manage-maintance works!</p>
+<div class="col">
+    <div class="container align-items-center justify-content-center">
+        <div class="row">
+            <h4 class="text-center fw-bolder mt-5">Select Vehicle </h4>
+            <div class="d-flex justify-content-center align-items-centerm  mt-2">
+                <form class="row g-3">
+                    <div class="col-auto">
+                      <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Enter Vehicle Number : ">
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" class="form-control" id="inputPassword2" placeholder="CBB4725">
+                    </div>
+                    <div class="col-auto">
+                      <button type="submit" class="btn text-white mb-3" style="background-color: #003049;">Confirm identity</button>
+                    </div>
+                  </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <div class=" card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
+                    <div class="container">
+                        <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Maintenance Manage Form</p>
+                        <form>
+                            <div>
+                                <div class="">
+                                    <label for="email" class="form-label">Maintenance Description</label>
+                                    <input type="text" formControlName="m_description" class="form-control" id="m_description"
+                                        name="m_description" aria-describedby="emailHelp" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Maintenance Date</label>
+                                    <input type="date" formControlName="m_date" class="form-control" id="m_date"
+                                        name="m_date" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Maintenance Price</label>
+                                    <input type="number" formControlName="m_price" class="form-control" id="m_price"
+                                        name="m_price" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Upload Receipts</label>
+                                    <input type="file" formControlName="m_mant_img" class="form-control" id="m_mant_img"
+                                        name="m_mant_img" autocomplete="off">
+                                </div>
+                                <div class="text-center mt-4 mb-2">
+                                    <button type="submit" class="btn px-5 text-white"
+                                        style="background-color: #003049;">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
+        <div class="container mb-5">
+            <div class="card p-2 mt-5" style="border-radius: 20px;">
+                <div class="table-responsive ">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Maintenance Number</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Price Year</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                <td>
+                                    <button class="btn btn-warning me-2">Update</button> 
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>fat</td>
+                                <td>
+                                    <button class="btn btn-warning me-2">Update</button> 
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry the Bird</td>
+                                <td colspan="2">twitter</td>
+                                <td>
+                                    <button class="btn btn-warning me-2">Update</button> 
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    
+    </div>
+</div>

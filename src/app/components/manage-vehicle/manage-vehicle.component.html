@@ -1,1 +1,105 @@
-<p>manage-vehicle works!</p>
+<div class="col">
+    <div class="container align-items-center justify-content-center">
+        <div class="row">
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <div class=" card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
+                    <div class="container">
+                        <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Vehicle Manage Form</p>
+                        <form [formGroup]="vehicleregisterform" (ngSubmit)="onSubmit()">
+                            <div>
+                                <div class="">
+                                    <label for="email" class="form-label">Car Register No <span
+                                            style="font-size: small;">(Number Plate)</span></label>
+                                    <input type="text" formControlName="car_reg_no" class="form-control" id="car_reg_no"
+                                        name="car_reg_no" aria-describedby="emailHelp" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Brand Name</label>
+                                    <input type="text" formControlName="car_brand" class="form-control" id="car_brand"
+                                        name="car_brand" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Model Name</label>
+                                    <input type="text" formControlName="car_model" class="form-control" id="car_model"
+                                        name="car_model" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Vehicle Type <span
+                                            style="font-size: small;">(small Sedan mini Suv)</span></label>
+                                    <input type="text" formControlName="car_type" class="form-control" id="car_type"
+                                        name="car_type" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Manufacture Year</label>
+                                    <input type="number" formControlName="car_manufacture_year" class="form-control" id="car_manufacture_year"
+                                        name="car_manufacture_year" autocomplete="off">
+                                </div>
+                                <div class="">
+                                    <label for="password" class="form-label">Vehicle Image</label>
+                                    <input type="file" formControlName="car_img" class="form-control" id="car_img"
+                                        name="car_img" autocomplete="off">
+                                </div>
+                                <div class="text-center mt-4 mb-2">
+                                    <button type="submit" class="btn px-5 text-white"
+                                        style="background-color: #003049;">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+    
+                </div>
+            </div>
+    
+        </div>
+        <div class="container">
+            <div class="card p-2 mt-5" style="border-radius: 20px;">
+                <div class="table-responsive ">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Car Number</th>
+                                <th scope="col">Car Brand</th>
+                                <th scope="col">Car Model</th>
+                                <th scope="col">Manufacture Year</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mdo</td>
+                                <td>
+                                    <button class="btn btn-warning me-2">Update</button> 
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>fat</td>
+                                <td>
+                                    <button class="btn btn-warning me-2">Update</button> 
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry the Bird</td>
+                                <td colspan="2">twitter</td>
+                                <td>
+                                    <button class="btn btn-warning me-2">Update</button> 
+                                    <button class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    
+    </div>
+</div>
