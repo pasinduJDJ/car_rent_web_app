@@ -1,56 +1,53 @@
 <div class="col">
     <div class="container align-items-center justify-content-center">
-        <div class="row">
-            <div class="d-flex justify-content-center align-items-center mt-4">
-                <div class=" card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
-                    <div class="container">
-                        <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Vehicle Manage Form</p>
-                        <form [formGroup]="vehicleregisterform" (ngSubmit)="onSubmit()">
-                            <div>
-                                <div class="">
-                                    <label for="email" class="form-label">Car Register No <span
-                                            style="font-size: small;">(Number Plate)</span></label>
-                                    <input type="text" formControlName="car_reg_no" class="form-control" id="car_reg_no"
-                                        name="car_reg_no" aria-describedby="emailHelp" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="password" class="form-label">Brand Name</label>
-                                    <input type="text" formControlName="car_brand" class="form-control" id="car_brand"
-                                        name="car_brand" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="password" class="form-label">Model Name</label>
-                                    <input type="text" formControlName="car_model" class="form-control" id="car_model"
-                                        name="car_model" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="password" class="form-label">Vehicle Type <span
-                                            style="font-size: small;">(small Sedan mini Suv)</span></label>
-                                    <input type="text" formControlName="car_type" class="form-control" id="car_type"
-                                        name="car_type" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="password" class="form-label">Manufacture Year</label>
-                                    <input type="number" formControlName="car_manufacture_year" class="form-control" id="car_manufacture_year"
-                                        name="car_manufacture_year" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="password" class="form-label">Vehicle Image</label>
-                                    <input type="file" formControlName="car_img" class="form-control" id="car_img"
-                                        name="car_img" autocomplete="off">
-                                </div>
-                                <div class="text-center mt-4 mb-2">
-                                    <button type="submit" class="btn px-5 text-white"
-                                        style="background-color: #003049;">Submit</button>
-                                </div>
-                            </div>
-                        </form>
+        <div class="container d-flex align-items-center justify-content-center mt-5">
+            <div class="card col-10 col-md-7 col-lg-5 col-xl-4 p-4 shadow-sm" style="border-radius: 20px;">
+                <p class="h4 fw-bold text-center mb-4" style="color: #003049;">Vehicle Manage Form</p>
+                <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm">
+                    <div class="mb-3">
+                        <label for="car_reg_no" class="form-label">Car Register No <span
+                                style="font-size: small;">(Number Plate)</span></label>
+                        <input type="text" class="form-control" [(ngModel)]="vehicle.car_reg_no" id="car_reg_no"
+                            name="car_reg_no" autocomplete="off">
                     </div>
-    
-                </div>
+                    <div class="mb-3">
+                        <label for="car_brand" class="form-label">Brand Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="vehicle.car_brand" id="car_brand"
+                            name="car_brand" autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <label for="car_model" class="form-label">Model Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="vehicle.car_model" id="car_model"
+                            name="car_model" autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <label for="car_type" class="form-label">Vehicle Type <span style="font-size: small;">(small
+                                Sedan mini Suv)</span></label>
+                        <input type="text" class="form-control" [(ngModel)]="vehicle.car_type" id="car_type"
+                            name="car_type" autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <label for="car_manufacture_year" class="form-label">Manufacture Year</label>
+                        <input type="number" class="form-control" [(ngModel)]="vehicle.car_manufacture_year"
+                            id="car_manufacture_year" name="car_manufacture_year" autocomplete="off">
+                    </div>
+                    <div class="mb-3">
+                        <label for="car_img" class="form-label">Vehicle Image</label>
+                        <span style="width: 100%; height: 100px;" class="mb-2 ms-5">
+                            <img *ngIf="vehicle.car_img" [src]="vehicle.car_img" alt="Vehicle Image"
+                                        class="vehicle-image" />
+                        </span>
+                        <input type="file" class="form-control" (change)="onFileChange($event)" accept="image/*"
+                            autocomplete="off">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary px-5 text-white"
+                            style="background-color: #003049;">Submit</button>
+                    </div>
+                </form>
             </div>
-    
         </div>
+
         <div class="container">
             <div class="card p-2 mt-5" style="border-radius: 20px;">
                 <div class="table-responsive ">
@@ -61,37 +58,23 @@
                                 <th scope="col">Car Brand</th>
                                 <th scope="col">Car Model</th>
                                 <th scope="col">Manufacture Year</th>
+                                <th scope="col">images</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mdo</td>
+                            <tr *ngFor="let vehicle of vehicles">
+                                <th>{{ vehicle.car_reg_no }}</th>
+                                <td>{{ vehicle.car_brand }}</td>
+                                <td>{{ vehicle.car_model }}</td>
+                                <td>{{ vehicle.car_manufacture_year }}</td>
+                                <!-- In your component's HTML file -->
+                                <td><img *ngIf="vehicle.car_img" [src]="vehicle.car_img" alt="Vehicle Image"
+                                        class="vehicle-image" /></td>
                                 <td>
-                                    <button class="btn btn-warning me-2">Update</button> 
-                                    <button class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                                <td>
-                                    <button class="btn btn-warning me-2">Update</button> 
-                                    <button class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry the Bird</td>
-                                <td colspan="2">twitter</td>
-                                <td>
-                                    <button class="btn btn-warning me-2">Update</button> 
-                                    <button class="btn btn-danger">Delete</button>
+                                    <button class="btn  me-2" style="background-color: #FFBA08;"
+                                        (click)="fillForm(vehicle.car_id)">Update</button>
+                                    <button class="btn text-white" style="background-color: #D00000;" (click)="deleteVehicle(vehicle.car_id)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -99,7 +82,7 @@
                 </div>
             </div>
         </div>
-        
-    
+
+
     </div>
 </div>

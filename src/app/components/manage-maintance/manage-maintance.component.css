@@ -1,3 +1,8 @@
 .back-color{
     background-color: rgba(0,48,73,0.1);
 }
+.maintance-image {
+    max-width: 100px; /* Adjust as needed */
+    max-height: 100px; /* Adjust as needed */
+    object-fit: contain; /* Ensures the image covers the dimensions without distortion */
+  }

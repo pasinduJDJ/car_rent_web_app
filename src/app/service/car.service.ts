@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface CarResponse{
   "car_id": number;
@@ -16,16 +17,16 @@ export interface CarResponse{
 })
 export class CarService {
 
-  private apiUrl ='http://localhost:8083/cars'
+  private apiUrl ='http://localhost:8083/cars';
+  private specUrl ='http://localhost:8083';
 
   constructor(private httpClient :HttpClient) { }
 
-  saveCar(car:object){
-    console.log(car);
-    return this.httpClient.post(this.apiUrl,car);
+  saveCar(formData: FormData) {
+    return this.httpClient.post(this.apiUrl, formData);
   }
 
-  getCar(){
+  getCar(): Observable<any>{
     return this.httpClient.get(this.apiUrl);
   }
 
@@ -44,7 +45,7 @@ export class CarService {
   }
   
   getCarByName(car_reg_no:string){
-    const url =this.apiUrl + "/cars?car_reg_no="+car_reg_no;
+    const url =this.specUrl + "/cars?car_reg_no="+car_reg_no;
     return this.httpClient.get(url);
   }
 }
