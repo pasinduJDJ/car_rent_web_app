@@ -1,29 +1,7 @@
-/* Hover effect for nav links */
 .navbar-nav .nav-link {
-  transition: color 0.3s, background-color 0.3s;
+  color: #333;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #ff6f61; /* Change color on hover */
-  background-color: #022c43; /* Optional: Add background color on hover */
-  border-radius: 4px; /* Optional: Rounded corners on hover */
-}
-
-/* Active link styling */
-.navbar-nav .nav-link.active {
-  color: #ffffff;
-  background-color: #d62828; /* Active background color */
-  border-radius: 4px; /* Optional: Rounded corners for active link */
-}
-
-/* Hover effect for dropdown menu items */
-.dropdown-menu .dropdown-item:hover {
-  background-color: #022c43;
-  color: #ffffff;
-}
-
-/* Active state for dropdown menu items */
-.dropdown-menu .dropdown-item.active {
-  background-color: #d62828;
-  color: #ffffff;
+  color: #780000;
 }
