@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="container lgbox mt-4 px-2 py-md-3">
+        <div class="d-flex flex-column flex-md-row align-items-center">
+            <div class="imgbox mb-3 mb-md-0 mx-md-4">
+                <img [src]="vehical.car_img">
+            </div>
+            <div class="fullbox text-start mt-lg-5">
+                <div class="row">
+                    <h5 style="font-weight: bold;"> {{vehical.car_model}}</h5>
+                </div>
+                <div class="row">
+                    <h6><span>Brand Name :</span> {{vehical.car_brand}}</h6>
+                </div>
+                <div class="row">
+                    <h6><span>Vehicle Type :</span> {{vehical.car_type}}</h6>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6>Vehicle Number: <span class="text-danger" style="font-weight: bolder;"> {{vehical.car_reg_no}}</span></h6>
+                    </div>
+                    <span class="col-12 col-md-4 mt-2 mt-md-0 me-md-4">
+                        <a class="btn text-white px-3 custom-btn w-100" style="background-color: #1C3144;" [routerLink]="['/home', vehical.car_id, 'singleVehicle']">see more..</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

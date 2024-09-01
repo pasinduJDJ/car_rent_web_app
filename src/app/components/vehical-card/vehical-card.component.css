@@ -1,0 +1,38 @@
+
+.lgbox {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    padding: 10px;
+    margin: auto;
+  }
+  
+  .lgbox:hover {
+    color: white;
+    background: #1c3144;
+  }
+  .lgbox:hover .custom-btn {
+      background-color: #780000 !important;
+  }
+  
+  .imgbox {
+    width: 200px;
+    max-height: 200px;
+    box-shadow: 4px 4px 5px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .fullbox {
+    flex: 1;
+  }
+  
+  .imgbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  

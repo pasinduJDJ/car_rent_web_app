@@ -14,6 +14,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { AddRentComponent } from './components/add-rent/add-rent.component';
 import { AddMaintanceComponent } from './components/add-maintance/add-maintance.component';
+import { VehicalCardComponent } from './components/vehical-card/vehical-card.component';
+import { SingelVehiclePageComponent } from './components/singel-vehicle-page/singel-vehicle-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AddMaintanceComponent } from './components/add-maintance/add-maintance.
     ManageRentServiceComponent,
     AddVehicleComponent,
     AddRentComponent,
-    AddMaintanceComponent
+    AddMaintanceComponent,
+    VehicalCardComponent,
+    SingelVehiclePageComponent
   ],
   imports: [
     BrowserModule,

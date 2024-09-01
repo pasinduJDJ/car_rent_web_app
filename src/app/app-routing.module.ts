@@ -8,6 +8,7 @@ import { ManageRentServiceComponent } from './components/manage-rent-service/man
 import { AddMaintanceComponent } from './components/add-maintance/add-maintance.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { AddRentComponent } from './components/add-rent/add-rent.component';
+import { SingelVehiclePageComponent } from './components/singel-vehicle-page/singel-vehicle-page.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -18,7 +19,10 @@ const routes: Routes = [
   {path: 'manage/managerent', component:ManageRentServiceComponent},
   {path: 'add/addmaintenance', component:AddMaintanceComponent},
   {path: 'add/addvehicle', component:AddVehicleComponent},
-  {path: 'add/addrent', component:AddRentComponent}
+  {path: 'add/addrent', component:AddRentComponent},
+  {path: 'single', component:SingelVehiclePageComponent},
+  {path: 'home/:id/singleVehicle', component: SingelVehiclePageComponent }
+
 ];
 
 @NgModule({
