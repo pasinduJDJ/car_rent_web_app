@@ -30,7 +30,8 @@
 
     <div class="row my-5">
       <h4 style="font-weight: bold; " class="mb-2">Income Details</h4>
-      <h6 style="font-weight: bold;color: #780000; " class="mb-2">Total Income : <span>30000</span></h6>
+      <h6 style="font-weight: bold; color: #780000;" class="mb-2">Total Income : <span>{{totalIncome |
+          number:'1.2-2'}}</span></h6>
       <div class="card p-2 mb-2" style="border-radius: 20px;">
         <div class="table-responsive ">
           <table class="table ">
@@ -41,6 +42,7 @@
                 <th scope="col">Distance <span style="font-size: small;">(Km)</span></th>
                 <th scope="col">Income <span style="font-size: small;"> (LKR)</span></th>
                 <th scope="col">Rent Receipts </th>
+                <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -51,6 +53,9 @@
                 <td>{{rent.r_price}} </td>
                 <td><img *ngIf="rent.r_recp_img" [src]="rent.r_recp_img" alt="Rent Receipts" class="maintance-image" />
                 </td>
+                <td>
+                  <button class="btn text-white px-3" style="background-color: #D00000;" *ngIf="rent.r_recp_img" (click)="openImage(rent.r_recp_img)">View Receipt</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -60,31 +65,36 @@
 
     <div class="row my-5">
       <h4 style="font-weight: bold; " class="mb-2">All Maintances Details</h4>
-      <h6 style="font-weight: bold; color: #780000;" class="mb-2">Full Maintance Cost : <span>24000</span></h6>
+      <h6 style="font-weight: bold; color: #780000;" class="mb-2">Full Maintance Cost : {{totalMaintance |
+        number:'1.2-2'}}</h6>
       <div class="card p-2" style="border-radius: 20px;">
         <div class="table-responsive ">
-            <table class="table ">
-                <thead>
-                    <tr>
-                        <th scope="col">Description</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Price <span style="font-size: small;"> (LKR)</span></th>
-                        <th scope="col">Maintenance Receipts</th>
+          <table class="table ">
+            <thead>
+              <tr>
+                <th scope="col">Description</th>
+                <th scope="col">Date</th>
+                <th scope="col">Price <span style="font-size: small;"> (LKR)</span></th>
+                <th scope="col">Maintenance Receipts</th>
+                <th scope="col">Actions</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let maintance of maintances">
-                        <th>{{maintance.m_description}}</th>
-                        <td>{{maintance.m_date}}</td>
-                        <td>{{maintance.m_price}}</td>
-                        <td><img *ngIf="maintance.m_mant_img" [src]="maintance.m_mant_img"
-                                alt="Maintenance Image" class="maintance-image" /></td>
-                    </tr>
-                </tbody>
-            </table>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let maintance of maintances">
+                <th>{{maintance.m_description}}</th>
+                <td>{{maintance.m_date}}</td>
+                <td>{{maintance.m_price}}</td>
+                <td><img *ngIf="maintance.m_mant_img" [src]="maintance.m_mant_img" alt="Maintenance Image"
+                    class="maintance-image" /></td>
+                <td>
+                  <button class="btn text-white px-3" style="background-color: #D00000;" *ngIf="maintance.m_mant_img" (click)="openImage(maintance.m_mant_img)">View Receipt</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </div>

@@ -15,9 +15,12 @@ export class SingelVehiclePageComponent implements OnInit {
 
   car_id: number | null = null; 
   car:any = null;
-  car_no: string | undefined ;
+  car_no: string | undefined ; 
   maintances:any []=[];
   rents: any[] = [];
+  totalIncome: number = 0;
+  totalMaintance: number = 0;
+
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -58,15 +61,18 @@ export class SingelVehiclePageComponent implements OnInit {
       (maintances)=>{
         if(maintances.length>0){
           this.maintances = maintances;
+          this.calculateTotalMaintance();
         }else{
           console.log("please Check Vehicle Number");
           this.maintances = [];
-          alert("Vehicle Number Not Match or no Maintances");
         }  
       },(error) =>{
         console.log('Error fetching Maintance',error)
       }
     )
+  }
+  calculateTotalMaintance() {
+    this.totalMaintance = this.maintances.reduce((sum, maintance) => sum + parseFloat(maintance.m_price), 0);
   }
   
   loadRentData(car_reg_no:any){
@@ -74,15 +80,27 @@ export class SingelVehiclePageComponent implements OnInit {
       (rents) => {
         if (rents.length > 0) {
           this.rents = rents;
+          this.calculateTotalIncome();
         } else {
           console.log("please Check Vehicle Number");
           this.rents = [];
-          alert("Vehicle Number Not Match or no rents Previously");
         }
       }, (error) => {
         console.log('Error fetching rents', error)
       }
     )
+  }
+
+  calculateTotalIncome() {
+    this.totalIncome = this.rents.reduce((sum, rent) => sum + parseFloat(rent.r_price), 0);
+  }
+
+  openImage(imageUrl: string) {
+    const popup = window.open('', '_blank', 'width=800,height=600');
+    if (popup) {
+      popup.document.write(`<html><head><title>Image</title></head><body><img src="${imageUrl}" style="width:100%; height:auto;" /></body></html>`);
+      popup.document.close();
+    }
   }
 
 }
