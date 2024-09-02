@@ -1,72 +1,88 @@
-<div class="col">
-    <div class="container align-items-center justify-content-center">
-        <div class="row">
-            <h4 class="text-center fw-bolder mt-5">Select Vehicle</h4>
-            <div class="d-flex justify-content-center align-items-center mt-2">
-                <form class="row g-3" (ngSubmit)="findcar()">
-                    <div class="col-auto">
-                        <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
-                            value="Enter Vehicle Number : ">
-                    </div>
-                    <div class="col-auto">
-                        <input type="text" class="form-control" id="car_reg_number" placeholder="CBB4725"
-                            name="car_reg_number" [(ngModel)]="car_reg_number">
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" class="btn text-white mb-3" style="background-color: #003049;">Confirm
-                            identity</button>
-                    </div>
-                </form>
-            </div>
+<div class="container align-items-center justify-content-center">
+    <div class="row">
+        <h4 class="text-center fw-bolder mt-5">Select Vehicle</h4>
+        <div class="d-flex justify-content-center align-items-center mt-2">
+            <form class="row g-3" (ngSubmit)="findcar()">
+                <div class="col-auto">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
+                        value="Enter Vehicle Number : ">
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="car_reg_number" placeholder="CBB4725"
+                        name="car_reg_number" [(ngModel)]="car_reg_number" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn text-white mb-3" style="background-color: #003049;">Confirm
+                        identity</button>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <div class="d-flex justify-content-center align-items-center mt-4">
-                <div class=" card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
-                    <div class="container">
-                        <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Add Rent Form</p>
-                        <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm">
-                            <div>
-                                <div class="">
-                                    <label for="m_car_no" class="form-label">Car Register No <span
-                                            style="font-size: small;">(Number Plate)</span></label>
-                                    <input type="text" [(ngModel)]="rent.r_car_no" class="form-control" id="m_car_no"
-                                        name="m_car_no" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="r_start_date" class="form-label">Rent Start Date</label>
-                                    <input type="date" [(ngModel)]="rent.r_start_date" class="form-control"
-                                        id="r_start_date" name="r_start_date" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="r_end_date" class="form-label">Rent End Date</label>
-                                    <input type="date" [(ngModel)]="rent.r_end_date" class="form-control"
-                                        id="r_end_date" name="r_end_date" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="r_distance" class="form-label">Rent Distance <span style="font-size: small;">(km)</span></label>
-                                    <input type="number" [(ngModel)]="rent.r_distance" class="form-control"
-                                        id="r_distance" name="r_distance" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="r_price" class="form-label">Income</label>
-                                    <input type="number" [(ngModel)]="rent.r_price" class="form-control" id="r_price"
-                                        name="r_price" autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <label for="r_recp_img" class="form-label">Rent Receipts Upload</label>
-                                    <input type="file" class="form-control" (change)="onFileChange($event)" accept="image/*" autocomplete="off">
-                                </div>
-                                <div class="text-center mt-4 mb-2">
-                                    <button type="submit" class="btn px-5 text-white"
-                                        style="background-color: #003049;">Submit</button>
+        <div class="px-5">
+            <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="d-flex justify-content-center align-items-center mt-4">
+            <div class="card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
+                <div class="container">
+                    <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Add Rent Form</p>
+                    <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm" novalidate>
+                        <div>
+                            <div class="">
+                                <label for="m_car_no" class="form-label">Car Register No <span
+                                        style="font-size: small;">(Number Plate)</span></label>
+                                <input type="text" [(ngModel)]="rent.r_car_no" class="form-control" id="m_car_no"
+                                    name="m_car_no" autocomplete="off" disabled>
+                            </div>
+                            <div class="">
+                                <label for="r_start_date" class="form-label">Rent Start Date</label>
+                                <input type="date" [(ngModel)]="rent.r_start_date" class="form-control"
+                                    id="r_start_date" name="r_start_date" autocomplete="off" required>
+                                <div *ngIf="VehicleForm.controls['r_start_date']?.invalid && VehicleForm.controls['r_start_date']?.touched" class="text-danger">
+                                    Rent start date is required.
                                 </div>
                             </div>
-                        </form>
-                    </div>
-
+                            <div class="">
+                                <label for="r_end_date" class="form-label">Rent End Date</label>
+                                <input type="date" [(ngModel)]="rent.r_end_date" class="form-control"
+                                    id="r_end_date" name="r_end_date" autocomplete="off" required>
+                                <div *ngIf="VehicleForm.controls['r_end_date']?.invalid && VehicleForm.controls['r_end_date']?.touched" class="text-danger">
+                                    Rent end date is required.
+                                </div>
+                            </div>
+                            <div class="">
+                                <label for="r_distance" class="form-label">Rent Distance <span
+                                        style="font-size: small;">(km)</span></label>
+                                <input type="number" [(ngModel)]="rent.r_distance" class="form-control"
+                                    id="r_distance" name="r_distance" autocomplete="off" required min="0">
+                                <div *ngIf="VehicleForm.controls['r_distance']?.invalid && VehicleForm.controls['r_distance']?.touched" class="text-danger">
+                                    Please enter a valid distance.
+                                </div>
+                            </div>
+                            <div class="">
+                                <label for="r_price" class="form-label">Income</label>
+                                <input type="number" [(ngModel)]="rent.r_price" class="form-control" id="r_price"
+                                    name="r_price" autocomplete="off" required min="0">
+                                <div *ngIf="VehicleForm.controls['r_price']?.invalid && VehicleForm.controls['r_price']?.touched" class="text-danger">
+                                    Please enter a valid income amount.
+                                </div>
+                            </div>
+                            <div class="">
+                                <label for="r_recp_img" class="form-label">Rent Receipts Upload</label>
+                                <input type="file" class="form-control" (change)="onFileChange($event)"
+                                    accept="image/*" autocomplete="off" required>
+                                <div *ngIf="VehicleForm.controls['r_recp_img']?.invalid && VehicleForm.controls['r_recp_img']?.touched" class="text-danger">
+                                    Rent receipt image is required.
+                                </div>
+                            </div>
+                            <div class="text-center mt-4 mb-2">
+                                <button type="submit" class="btn px-5 text-white"
+                                    style="background-color: #003049;" [disabled]="VehicleForm.invalid">Submit</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

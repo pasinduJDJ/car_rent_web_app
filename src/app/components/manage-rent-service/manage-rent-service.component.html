@@ -18,33 +18,52 @@
                     </div>
                 </form>
             </div>
+            <div class="px-5">
+                <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
+            </div>
         </div>
         <div class="row">
             <div class="d-flex justify-content-center align-items-center mt-4">
                 <div class=" card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
                     <div class="container">
                         <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Rent Manage Form</p>
-                        <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm">
+                        <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm" novalidate>
                             <div>
                                 <div class="">
                                     <label for="r_start_date" class="form-label">Rent Start Date</label>
                                     <input type="date" [(ngModel)]="rent.r_start_date" class="form-control"
                                         id="r_start_date" name="r_start_date" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['r_start_date']?.invalid && VehicleForm.controls['r_start_date']?.touched"
+                                        class="text-danger">
+                                        Rent start date is required.
+                                    </div>
                                 </div>
                                 <div class="">
                                     <label for="r_end_date" class="form-label">Rent End Date</label>
                                     <input type="date" [(ngModel)]="rent.r_end_date" class="form-control"
                                         id="r_end_date" name="r_end_date" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['r_end_date']?.invalid && VehicleForm.controls['r_end_date']?.touched"
+                                        class="text-danger">
+                                        Rent end date is required.
+                                    </div>
                                 </div>
                                 <div class="">
                                     <label for="r_distance" class="form-label">Rent Distance</label>
                                     <input type="text" [(ngModel)]="rent.r_distance" class="form-control"
                                         id="r_distance" name="r_distance" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['r_distance']?.invalid && VehicleForm.controls['r_distance']?.touched"
+                                        class="text-danger">
+                                        Please enter a valid distance.
+                                    </div>
                                 </div>
                                 <div class="">
                                     <label for="r_price" class="form-label">Income</label>
                                     <input type="number" [(ngModel)]="rent.r_price" class="form-control" id="r_price"
                                         name="r_price" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['r_price']?.invalid && VehicleForm.controls['r_price']?.touched"
+                                        class="text-danger">
+                                        Please enter a valid income amount.
+                                    </div>
                                 </div>
                                 <div class="">
                                     <label for="r_recp_img" class="form-label">Rent Receipts Upload</label>
@@ -54,6 +73,10 @@
                                     </span>
                                     <input type="file" class="form-control" (change)="onFileChange($event)"
                                         accept="image/*" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['r_recp_img']?.invalid && VehicleForm.controls['r_recp_img']?.touched"
+                                        class="text-danger">
+                                        Rent receipt image is required.
+                                    </div>
                                 </div>
                                 <div class="text-center mt-4 mb-2">
                                     <button type="submit" class="btn px-5 text-white"

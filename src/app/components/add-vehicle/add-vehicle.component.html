@@ -1,33 +1,52 @@
-<div class="container d-flex align-items-center justify-content-center mt-5">
-  <div class="card col-10 col-md-7 col-lg-5 col-xl-4 p-4 shadow-sm" style="border-radius: 20px;">
+<div class="container d-flex align-items-center justify-content-center mt-5 mb-4">
+  <div class="card col-10 col-md-7 col-lg-5 col-xl-4 p-4 shadow-sm back-color" style="border-radius: 20px;">
+    <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
     <p class="h4 fw-bold text-center mb-4" style="color: #003049;">Vehicle Manage Form</p>
-    <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm" novalidate>
       <div class="mb-3">
         <label for="car_reg_no" class="form-label">Car Register No <span style="font-size: small;">(Number Plate)</span></label>
-        <input type="text" class="form-control" [(ngModel)]="vehicle.car_reg_no" id="car_reg_no" name="car_reg_no" autocomplete="off">
+        <input type="text" class="form-control" [(ngModel)]="vehicle.car_reg_no" id="car_reg_no" name="car_reg_no" autocomplete="off" required minlength="6" required maxlength="7">
+        <div *ngIf="VehicleForm.controls['car_reg_no']?.invalid && VehicleForm.controls['car_reg_no']?.touched" class="text-danger" >
+          Car registration number is required and must be at least 6 characters long.
+        </div>
       </div>
       <div class="mb-3">
         <label for="car_brand" class="form-label">Brand Name</label>
-        <input type="text" class="form-control" [(ngModel)]="vehicle.car_brand" id="car_brand" name="car_brand" autocomplete="off">
+        <input type="text" class="form-control" [(ngModel)]="vehicle.car_brand" id="car_brand" name="car_brand" autocomplete="off" required>
+        <div *ngIf="VehicleForm.controls['car_brand']?.invalid && VehicleForm.controls['car_brand']?.touched" class="text-danger">
+          Brand name is required.
+        </div>
       </div>
       <div class="mb-3">
         <label for="car_model" class="form-label">Model Name</label>
-        <input type="text" class="form-control" [(ngModel)]="vehicle.car_model" id="car_model" name="car_model" autocomplete="off">
+        <input type="text" class="form-control" [(ngModel)]="vehicle.car_model" id="car_model" name="car_model" autocomplete="off" required>
+        <div *ngIf="VehicleForm.controls['car_model']?.invalid && VehicleForm.controls['car_model']?.touched" class="text-danger">
+          Model name is required.
+        </div>
       </div>
       <div class="mb-3">
         <label for="car_type" class="form-label">Vehicle Type <span style="font-size: small;">(small Sedan mini Suv)</span></label>
-        <input type="text" class="form-control" [(ngModel)]="vehicle.car_type" id="car_type" name="car_type" autocomplete="off">
+        <input type="text" class="form-control" [(ngModel)]="vehicle.car_type" id="car_type" name="car_type" autocomplete="off" required>
+        <div *ngIf="VehicleForm.controls['car_type']?.invalid && VehicleForm.controls['car_type']?.touched" class="text-danger">
+          Vehicle type is required.
+        </div>
       </div>
       <div class="mb-3">
         <label for="car_manufacture_year" class="form-label">Manufacture Year</label>
-        <input type="number" class="form-control" [(ngModel)]="vehicle.car_manufacture_year" id="car_manufacture_year" name="car_manufacture_year" autocomplete="off">
+        <input type="number" class="form-control" [(ngModel)]="vehicle.car_manufacture_year" id="car_manufacture_year" name="car_manufacture_year" autocomplete="off" required min="1886" max="{{currentYear}}">
+        <div *ngIf="VehicleForm.controls['car_manufacture_year']?.invalid && VehicleForm.controls['car_manufacture_year']?.touched" class="text-danger">
+          Please enter a valid year between 1886 and {{currentYear}}.
+        </div>
       </div>
       <div class="mb-3">
         <label for="car_img" class="form-label">Vehicle Image</label>
-        <input type="file" class="form-control" (change)="onFileChange($event)" accept="image/*" autocomplete="off">
+        <input type="file" class="form-control" (change)="onFileChange($event)" accept="image/*" autocomplete="off" required>
+        <div *ngIf="VehicleForm.controls['car_img']?.invalid && VehicleForm.controls['car_img']?.touched" class="text-danger">
+          Vehicle image is required.
+        </div>
       </div>
       <div class="text-center">
-        <button type="submit" class="btn btn-primary px-5 text-white" style="background-color: #003049;">Submit</button>
+        <button type="submit" class="btn btn-primary px-5 text-white" style="background-color: #003049;" [disabled]="VehicleForm.invalid">Submit</button>
       </div>
     </form>
   </div>

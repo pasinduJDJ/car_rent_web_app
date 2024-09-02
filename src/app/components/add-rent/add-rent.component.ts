@@ -10,16 +10,18 @@ import { CarService } from '../../service/car.service';
 })
 export class AddRentComponent {
 
-  constructor(private http: HttpClient, private rentService: RentService, private carService:CarService) { }
-  car_reg_number: string='';
+  constructor(private http: HttpClient, private rentService: RentService, private carService: CarService) { }
+  car_reg_number: string = '';
+  alertMessage: string | null = null;
+  alertType: 'success' | 'danger' = 'success';
 
   rent = {
-    r_start_date : "",
-    r_end_date : "",
-    r_distance : "",
-    r_price : "",
+    r_start_date: "",
+    r_end_date: "",
+    r_distance: "",
+    r_price: "",
     r_car_no: this.car_reg_number,
-    r_recp_img : "",
+    r_recp_img: "",
   }
 
   findcar() {
@@ -27,15 +29,17 @@ export class AddRentComponent {
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
         if (response && Array.isArray(response) && response.length > 0) {
-          // Assuming the response contains the car details
           console.log('Vehicle registration number found:', response);
-          this.rent.r_car_no = this.car_reg_number; // Set the car registration number
+          this.rent.r_car_no = this.car_reg_number;
         } else {
-          console.error('Vehicle registration number not found or empty response.');
+          this.alertMessage = 'Vehicle registration number not found';
+          this.alertType = 'danger';
         }
       },
       error => {
         console.error('Error retrieving vehicle registration number:', error);
+        this.alertMessage = 'Vehicle registration number not found';
+        this.alertType = 'danger';
       }
     );
   }
@@ -52,12 +56,33 @@ export class AddRentComponent {
   }
 
   onSubmit() {
-    console.log(this.rent);
-    this.http.post('http://localhost:8083/rents', this.rent)
-      .subscribe(response => {
-        console.log('Rent added:', response);
-        this.rent = { r_car_no: '', r_distance: '', r_end_date: '', r_price: '', r_recp_img: '', r_start_date: ''};
-        this.car_reg_number='';
-      });
+    if (this.rent.r_start_date && this.rent.r_end_date && this.rent.r_distance && this.rent.r_price && this.rent.r_recp_img) {
+      this.http.post('http://localhost:8083/rents', this.rent)
+        .subscribe(response => {
+          console.log('Rent added:', response);
+          this.alertMessage = 'Rent details added successfully';
+          this.alertType = 'success';
+          this.resetForm();
+        }, error => {
+          console.error('Failed to add rent:', error);
+          this.alertMessage = 'Failed to add rent details';
+          this.alertType = 'danger';
+        });
+    } else {
+      this.alertMessage = 'Please fill out all fields correctly.';
+      this.alertType = 'danger';
+    }
+  }
+
+  resetForm() {
+    this.rent = {
+      r_start_date: '',
+      r_end_date: '',
+      r_distance: '',
+      r_price: '',
+      r_car_no: this.car_reg_number,
+      r_recp_img: ''
+    };
+    this.car_reg_number = '';
   }
 }

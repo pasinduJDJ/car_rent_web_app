@@ -10,12 +10,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddVehicleComponent {
 
+  currentYear:number= 2024;
   constructor(private http: HttpClient) { }
-  
-  vehicle ={
+  alertMessage: string | null = null;
+  alertType: 'success' | 'danger' = 'success';
+
+  vehicle = {
     car_reg_no: '',
     car_brand: '',
-    car_model:'',
+    car_model: '',
     car_type: '',
     car_manufacture_year: '',
     car_img: '',
@@ -33,12 +36,22 @@ export class AddVehicleComponent {
   }
 
   onSubmit() {
-    console.log("this.vehicle");
-    this.http.post('http://localhost:8083/cars', this.vehicle)
-      .subscribe(response => {
-        console.log('Vehicle added:', response);
-      });
+    if (this.vehicle.car_reg_no && this.vehicle.car_brand && this.vehicle.car_model && this.vehicle.car_type && this.vehicle.car_manufacture_year && this.vehicle.car_img) {
+      this.http.post('http://localhost:8083/cars', this.vehicle)
+        .subscribe(response => {
+          this.alertMessage = 'Vehicle Added successfully';
+          this.alertType = 'success';
+          console.log('Vehicle added:', response);
+          this.vehicle = { car_reg_no: '', car_brand: '', car_model: '', car_type: '', car_manufacture_year: '', car_img: '' };
+        }, error => {
+          this.alertMessage = 'Vehicle Adding Fail';
+          this.alertType = 'danger';
+        });
+    } else {
+      this.alertMessage = 'Please fill out all fields correctly.';
+      this.alertType = 'danger';
+    }
   }
 
-  
+
 }

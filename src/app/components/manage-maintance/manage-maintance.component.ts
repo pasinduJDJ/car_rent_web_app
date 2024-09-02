@@ -12,6 +12,8 @@ export class ManageMaintanceComponent implements OnInit {
   car_reg_number: string = '';
   maintances:any []=[];
   selectedmaintances:any =null;
+  alertMessage: string | null = null;
+  alertType: 'success' | 'danger' = 'success';
 
   maintance = {
     m_description:'',
@@ -33,10 +35,10 @@ export class ManageMaintanceComponent implements OnInit {
         if(maintances.length>0){
           this.maintances = maintances;
         }else{
-          console.log("please Check Vehicle Number");
           this.maintances = [];
-          alert("Vehicle Number Not Match or no Maintances");
           this.car_reg_number = '';
+          this.alertMessage = 'Vehicle Number Not Match or no rents Previously';
+          this.alertType = 'danger';
         }  
       },(error) =>{
         console.log('Error fetching Maintance',error)
@@ -85,17 +87,24 @@ export class ManageMaintanceComponent implements OnInit {
   }
 
   onSubmit() {
-    this.maintainService.updateMaintance(this.maintance).subscribe(
-      (response) => {
-        console.log(this.maintance);
-        console.log('Maintance updated successfully', response);
-        this.maintance = { m_description: '', m_date: '', m_price: '', m_car_no: '', m_mant_img: ''};
-        this.loadMaintance();
-      },
-      (error) => {
-        console.error('Error updating Maintance:', error);
-      }
-    );
+    if (this.maintance.m_description && this.maintance.m_date && this.maintance.m_price && this.maintance.m_mant_img) {
+      this.maintainService.updateMaintance(this.maintance).subscribe(
+        (response) => {
+          console.log(this.maintance);
+          this.maintance = { m_description: '', m_date: '', m_price: '', m_car_no: '', m_mant_img: ''};
+          this.loadMaintance();
+          this.alertMessage='Maintance updated successfully';
+          this.alertType='success';
+        },
+        (error) => {
+          this.alertMessage='Error updating Rent';
+          this.alertType='danger';
+        }
+      );
+    }else {
+      this.alertMessage = 'Please fill out all fields correctly.';
+      this.alertType = 'danger';
+    }
   }
 
   deleteMinatnce(m_id :number) {

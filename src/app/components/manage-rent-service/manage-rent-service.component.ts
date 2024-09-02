@@ -11,7 +11,9 @@ export class ManageRentServiceComponent {
 
   car_reg_number: string = '';
   rents: any[] = [];
-  selectedrent:any =null;
+  selectedrent: any = null;
+  alertMessage: string | null = null;
+  alertType: 'success' | 'danger' = 'success';
 
   rent = {
     r_start_date: "",
@@ -28,7 +30,6 @@ export class ManageRentServiceComponent {
     console.log('Vehicle Registration Number:', this.car_reg_number);
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
-        console.log('Vehicle registration number saved successfully', response);
         this.loadRent()
       },
       error => {
@@ -44,20 +45,20 @@ export class ManageRentServiceComponent {
         if (rents.length > 0) {
           this.rents = rents;
         } else {
-          console.log("please Check Vehicle Number");
           this.rents = [];
-          alert("Vehicle Number Not Match or no rents Previously");
           this.car_reg_number = '';
+          this.alertMessage = 'Vehicle Number Not Match or no rents Previously';
+          this.alertType = 'danger';
         }
       }, (error) => {
         console.log('Error fetching rents', error)
       }
     )
   }
-  
+
   deleteRent(r_id: number) {
     this.rentService.deleteRent(r_id).subscribe(
-      ()=>{
+      () => {
         this.loadRent();
       }
     )
@@ -70,7 +71,7 @@ export class ManageRentServiceComponent {
         console.log(res);
         this.selectedrent = res;
         if (this.selectedrent) {
-          this.rent = { ...this.selectedrent }; 
+          this.rent = { ...this.selectedrent };
         }
       },
       (error) => {
@@ -90,17 +91,24 @@ export class ManageRentServiceComponent {
   }
 
   onSubmit() {
-    this.rentService.updateRent(this.rent).subscribe(
-      (response) => {
-        console.log(this.rent);
-        console.log('Rent updated successfully', response);
-        this.rent = { r_car_no: '', r_distance: '', r_end_date: '', r_price: '', r_recp_img: '', r_start_date: ''};
-        this.loadRent();
-      },
-      (error) => {
-        console.error('Error updating Rent:', error);
-      }
-    );
+    if (this.rent.r_start_date && this.rent.r_end_date && this.rent.r_distance && this.rent.r_price && this.rent.r_recp_img) {
+      this.rentService.updateRent(this.rent).subscribe(
+        (response) => {
+          console.log(this.rent);
+          this.rent = { r_car_no: '', r_distance: '', r_end_date: '', r_price: '', r_recp_img: '', r_start_date: '' };
+          this.loadRent();
+          this.alertMessage='Rent updated successfully';
+          this.alertType='success';
+        },
+        (error) => {
+          this.alertMessage='Error updating Rent';
+          this.alertType='danger';
+        }
+      );
+    }else {
+      this.alertMessage = 'Please fill out all fields correctly.';
+      this.alertType = 'danger';
+    }
   }
 
 }

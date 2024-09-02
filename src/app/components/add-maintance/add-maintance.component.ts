@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+
 import { CarService } from '../../service/car.service';
 
 @Component({
@@ -11,6 +12,8 @@ export class AddMaintanceComponent {
 
   constructor(private http: HttpClient, private carService: CarService) { }
   car_reg_number: string = '';
+  alertMessage: string | null = null;
+  alertType: 'success' | 'danger' = 'success';
 
   maintance = {
     m_description: '',
@@ -25,14 +28,15 @@ export class AddMaintanceComponent {
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
         if (response && Array.isArray(response) && response.length > 0) {
-          // Assuming the response contains the car details
           console.log('Vehicle registration number found:', response);
-          this.maintance.m_car_no = this.car_reg_number; // Set the car registration number
         } else {
-          console.error('Vehicle registration number not found or empty response.');
+          this.alertMessage = 'Vehicle registration number not found';
+          this.alertType = 'danger';
         }
       },
       error => {
+        this.alertMessage = 'Vehicle registration number not found';
+        this.alertType = 'danger';
         console.error('Error retrieving vehicle registration number:', error);
       }
     );
@@ -50,13 +54,25 @@ export class AddMaintanceComponent {
   }
 
   onSubmit() {
-    console.log(this.maintance);
-    this.http.post('http://localhost:8083/maintains', this.maintance)
-      .subscribe(response => {
-        console.log('Maintains added:', response);
-        this.maintance = { m_description: '', m_date: '', m_price: '', m_car_no: '', m_mant_img: ''};
-        this.car_reg_number='';
-      });
+    if (this.maintance.m_description && this.maintance.m_date && this.maintance.m_price && this.maintance.m_mant_img) {
+      this.http.post('http://localhost:8083/maintains', this.maintance)
+        .subscribe(response => {
+          this.alertMessage = 'Maintenance record added successfully';
+          this.alertType = 'success';
+          this.resetForm();
+        }, error => {
+          this.alertMessage = 'Failed to add maintenance record';
+          this.alertType = 'danger';
+        });
+    } else {
+      this.alertMessage = 'Please fill out all fields correctly.';
+      this.alertType = 'danger';
+    }
+  }
+
+  resetForm() {
+    this.maintance = { m_description: '', m_date: '', m_price: '', m_car_no: this.car_reg_number, m_mant_img: '' };
+    this.car_reg_number = '';
   }
 
 }

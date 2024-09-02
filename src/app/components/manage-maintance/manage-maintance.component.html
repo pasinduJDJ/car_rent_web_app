@@ -1,5 +1,5 @@
 <div class="col">
-    <div class="container align-items-center justify-content-center">
+    <div class="container align-items-center justify-content-center mb-5">
         <div class="row">
             <h4 class="text-center fw-bolder mt-5">Select Vehicle</h4>
             <div class="d-flex justify-content-center align-items-center mt-2">
@@ -18,28 +18,43 @@
                     </div>
                 </form>
             </div>
+            <div class="px-5">
+                <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
+            </div>
         </div>
         <div class="row">
             <div class="d-flex justify-content-center align-items-center mt-4">
                 <div class=" card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
                     <div class="container">
                         <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Maintenance Manage Form</p>
-                        <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm">
+                        <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm" novalidate>
                             <div>
                                 <div class="">
                                     <label for="m_description" class="form-label">Maintenance Description</label>
                                     <input type="text" [(ngModel)]="maintance.m_description" class="form-control"
                                         id="m_description" name="m_description" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['m_description']?.invalid && VehicleForm.controls['m_description']?.touched"
+                                        class="text-danger">
+                                        Maintenance description is required.
+                                    </div>
                                 </div>
                                 <div class="">
                                     <label for="m_date" class="form-label">Maintenance Date</label>
                                     <input type="date" [(ngModel)]="maintance.m_date" class="form-control" id="m_date"
                                         name="m_date" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['m_date']?.invalid && VehicleForm.controls['m_date']?.touched"
+                                        class="text-danger">
+                                        Maintenance date is required.
+                                    </div>
                                 </div>
                                 <div class="">
                                     <label for="m_price" class="form-label">Maintenance Price</label>
                                     <input type="number" [(ngModel)]="maintance.m_price" class="form-control"
                                         id="m_price" name="m_price" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['m_price']?.invalid && VehicleForm.controls['m_price']?.touched"
+                                        class="text-danger">
+                                        Please enter a valid price.
+                                    </div>
                                 </div>
                                 <div class="">
                                     <label for="m_mant_img" class="form-label">Upload Receipts</label>
@@ -49,6 +64,10 @@
                                     </span>
                                     <input type="file" class="form-control" (change)="onFileChange($event)"
                                         accept="image/*" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['car_ment_img']?.invalid && VehicleForm.controls['car_ment_img']?.touched"
+                                        class="text-danger">
+                                        Receipt image is required.
+                                    </div>
                                 </div>
                                 <div class="text-center mt-4 mb-2">
                                     <button type="submit" class="btn px-5 text-white"
