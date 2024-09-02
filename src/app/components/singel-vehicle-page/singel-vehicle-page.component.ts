@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CarService } from '../../service/car.service';
 import { MaintanceService } from '../../service/maintance.service';
 import { RentService } from '../../service/rent.service';
-
+import * as XLSX from 'xlsx'; 
 @Component({
   selector: 'app-singel-vehicle-page',
   templateUrl: './singel-vehicle-page.component.html',
@@ -102,5 +102,34 @@ export class SingelVehiclePageComponent implements OnInit {
       popup.document.close();
     }
   }
+  downloadRentData() {
+    const truncatedRents = this.rents.map(rent => ({
+      r_start_date: rent.r_start_date,
+      r_end_date: rent.r_end_date,
+      r_distance: rent.r_distance,
+      r_price: rent.r_price,
+    }));
+  
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(truncatedRents, { header: ["r_start_date", "r_end_date", "r_distance", "r_price"] });
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Rents");
+  
+    XLSX.writeFile(wb, 'IncomeData.xlsx');
+  }
+
+  downloadMaintainData(){
+    const truncatedMaintances = this.maintances.map(maintance => ({
+      m_description: maintance.m_description,
+      m_date: maintance.m_date,
+      m_price: maintance.m_price,
+    }));
+  
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(truncatedMaintances, { header: ["m_description", "m_date", "m_price"] });
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Maintance");
+  
+    XLSX.writeFile(wb, 'MaintanceData.xlsx');
+  }
+  
 
 }

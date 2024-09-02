@@ -43,6 +43,7 @@ export class AddVehicleComponent {
           this.alertType = 'success';
           console.log('Vehicle added:', response);
           this.vehicle = { car_reg_no: '', car_brand: '', car_model: '', car_type: '', car_manufacture_year: '', car_img: '' };
+          window.location.reload();
         }, error => {
           this.alertMessage = 'Vehicle Adding Fail';
           this.alertType = 'danger';

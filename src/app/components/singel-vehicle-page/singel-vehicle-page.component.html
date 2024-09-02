@@ -30,31 +30,39 @@
 
     <div class="row my-5">
       <h4 style="font-weight: bold; " class="mb-2">Income Details</h4>
-      <h6 style="font-weight: bold; color: #780000;" class="mb-2">Total Income : <span>{{totalIncome |
+      <div class="row">
+        <div class="col">
+          <h6 style="font-weight: bold; color: #780000;" class="mb-2">Total Income : <span>{{totalIncome |
           number:'1.2-2'}}</span></h6>
+        </div>
+        <span class="col text-end">
+          <button class="btn text-white mb-3" style="background-color: #003049;" (click)="downloadRentData()">Download Income Data</button>
+        </span>
+      </div>
       <div class="card p-2 mb-2" style="border-radius: 20px;">
         <div class="table-responsive ">
           <table class="table ">
             <thead>
               <tr>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Distance <span style="font-size: small;">(Km)</span></th>
-                <th scope="col">Income <span style="font-size: small;"> (LKR)</span></th>
-                <th scope="col">Rent Receipts </th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="text-center">Start Date</th>
+                <th scope="col" class="text-center">End Date</th>
+                <th scope="col" class="text-center">Distance <span style="font-size: small;">(Km)</span></th>
+                <th scope="col" class="text-center">Income <span style="font-size: small;"> (LKR)</span></th>
+                <th scope="col" class="text-center">Rent Receipts </th>
+                <th scope="col" class="text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let rent of rents ">
-                <th>{{rent.r_start_date}}</th>
-                <td>{{rent.r_end_date}}</td>
-                <td>{{rent.r_distance}} </td>
-                <td>{{rent.r_price}} </td>
-                <td><img *ngIf="rent.r_recp_img" [src]="rent.r_recp_img" alt="Rent Receipts" class="maintance-image" />
+                <th class="text-center">{{rent.r_start_date}}</th>
+                <td class="text-center">{{rent.r_end_date}}</td>
+                <td class="text-center">{{rent.r_distance}} </td>
+                <td class="text-center">{{rent.r_price}} </td>
+                <td class="text-center"><img *ngIf="rent.r_recp_img" [src]="rent.r_recp_img" alt="Rent Receipts" class="maintance-image" />
                 </td>
-                <td>
-                  <button class="btn text-white px-3" style="background-color: #D00000;" *ngIf="rent.r_recp_img" (click)="openImage(rent.r_recp_img)">View Receipt</button>
+                <td class="text-center">
+                  <button class="btn text-white px-3 bg-danger" *ngIf="rent.r_recp_img"
+                    (click)="openImage(rent.r_recp_img)">View Receipt</button>
                 </td>
               </tr>
             </tbody>
@@ -65,30 +73,39 @@
 
     <div class="row my-5">
       <h4 style="font-weight: bold; " class="mb-2">All Maintances Details</h4>
-      <h6 style="font-weight: bold; color: #780000;" class="mb-2">Full Maintance Cost : {{totalMaintance |
+      <div class="row">
+        <div class="col">
+          <h6 style="font-weight: bold; color: #780000;" class="mb-2">Full Maintance Cost : {{totalMaintance |
         number:'1.2-2'}}</h6>
+        </div>
+        <span class="col text-end">
+          <button class="btn text-white mb-3" style="background-color: #003049;"(click)="downloadMaintainData()">Download Maintance Data</button>
+        </span>
+      </div>
+
       <div class="card p-2" style="border-radius: 20px;">
         <div class="table-responsive ">
           <table class="table ">
             <thead>
               <tr>
-                <th scope="col">Description</th>
-                <th scope="col">Date</th>
-                <th scope="col">Price <span style="font-size: small;"> (LKR)</span></th>
-                <th scope="col">Maintenance Receipts</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="text-center">Description</th>
+                <th scope="col" class="text-center">Date</th>
+                <th scope="col" class="text-center">Price <span style="font-size: small;"> (LKR)</span></th>
+                <th scope="col" class="text-center">Maintenance Receipts</th>
+                <th scope="col" class="text-center">Actions</th>
 
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let maintance of maintances">
-                <th>{{maintance.m_description}}</th>
-                <td>{{maintance.m_date}}</td>
-                <td>{{maintance.m_price}}</td>
-                <td><img *ngIf="maintance.m_mant_img" [src]="maintance.m_mant_img" alt="Maintenance Image"
+                <th class="text-center">{{maintance.m_description}}</th>
+                <td class="text-center">{{maintance.m_date}}</td>
+                <td class="text-center">{{maintance.m_price}}</td>
+                <td class="text-center"><img *ngIf="maintance.m_mant_img" [src]="maintance.m_mant_img" alt="Maintenance Image"
                     class="maintance-image" /></td>
-                <td>
-                  <button class="btn text-white px-3" style="background-color: #D00000;" *ngIf="maintance.m_mant_img" (click)="openImage(maintance.m_mant_img)">View Receipt</button>
+                <td class="text-center">
+                  <button class="btn text-white px-3 bg-danger" *ngIf="maintance.m_mant_img"
+                    (click)="openImage(maintance.m_mant_img)">View Receipt</button>
                 </td>
               </tr>
             </tbody>
