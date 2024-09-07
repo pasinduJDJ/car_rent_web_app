@@ -95,6 +95,7 @@ export class ManageMaintanceComponent implements OnInit {
           this.loadMaintance();
           this.alertMessage='Maintance updated successfully';
           this.alertType='success';
+          window.location.reload();
         },
         (error) => {
           this.alertMessage='Error updating Rent';

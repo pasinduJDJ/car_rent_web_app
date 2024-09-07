@@ -39,11 +39,9 @@ export class AddVehicleComponent {
     if (this.vehicle.car_reg_no && this.vehicle.car_brand && this.vehicle.car_model && this.vehicle.car_type && this.vehicle.car_manufacture_year && this.vehicle.car_img) {
       this.http.post('http://localhost:8083/cars', this.vehicle)
         .subscribe(response => {
+          window.location.reload();
           this.alertMessage = 'Vehicle Added successfully';
           this.alertType = 'success';
-          console.log('Vehicle added:', response);
-          this.vehicle = { car_reg_no: '', car_brand: '', car_model: '', car_type: '', car_manufacture_year: '', car_img: '' };
-          window.location.reload();
         }, error => {
           this.alertMessage = 'Vehicle Adding Fail';
           this.alertType = 'danger';

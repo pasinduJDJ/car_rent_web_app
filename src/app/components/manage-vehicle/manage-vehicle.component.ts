@@ -79,6 +79,7 @@ export class ManageVehicleComponent implements OnInit {
           this.loadAllVehicles();
           this.alertMessage='Vehicle updated successfully';
           this.alertType='success';
+          window.location.reload();
         },
         (error) => {
           this.alertMessage='Error updating vehicle';

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CarService } from '../../service/car.service';
 
@@ -8,9 +8,14 @@ import { CarService } from '../../service/car.service';
   templateUrl: './add-maintance.component.html',
   styleUrl: './add-maintance.component.css'
 })
-export class AddMaintanceComponent {
+export class AddMaintanceComponent implements OnInit{
 
   constructor(private http: HttpClient, private carService: CarService) { }
+
+  ngOnInit(): void {
+    const today= new Date();
+    this.maxDate= today.toISOString().split('T')[0];
+  }
   car_reg_number: string = '';
   alertMessage: string | null = null;
   alertType: 'success' | 'danger' = 'success';
@@ -23,12 +28,16 @@ export class AddMaintanceComponent {
     m_mant_img: '',
   }
 
+  maxDate : String='';
+
   findcar() {
     console.log('Vehicle Registration Number:', this.car_reg_number);
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
         if (response && Array.isArray(response) && response.length > 0) {
-          console.log('Vehicle registration number found:', response);
+          this.maintance.m_car_no=this.car_reg_number;
+          this.alertMessage = 'Add Maintance under this Vehicle Number';
+          this.alertType = 'success';
         } else {
           this.alertMessage = 'Vehicle registration number not found';
           this.alertType = 'danger';
@@ -57,9 +66,9 @@ export class AddMaintanceComponent {
     if (this.maintance.m_description && this.maintance.m_date && this.maintance.m_price && this.maintance.m_mant_img) {
       this.http.post('http://localhost:8083/maintains', this.maintance)
         .subscribe(response => {
+          window.location.reload();
           this.alertMessage = 'Maintenance record added successfully';
           this.alertType = 'success';
-          this.resetForm();
         }, error => {
           this.alertMessage = 'Failed to add maintenance record';
           this.alertType = 'danger';

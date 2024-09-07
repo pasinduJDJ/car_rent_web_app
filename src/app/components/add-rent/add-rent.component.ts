@@ -29,7 +29,8 @@ export class AddRentComponent {
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
         if (response && Array.isArray(response) && response.length > 0) {
-          console.log('Vehicle registration number found:', response);
+          this.alertMessage = 'Add Rent Details This Vehicle Number';
+          this.alertType = 'success';
           this.rent.r_car_no = this.car_reg_number;
         } else {
           this.alertMessage = 'Vehicle registration number not found';
@@ -59,10 +60,9 @@ export class AddRentComponent {
     if (this.rent.r_start_date && this.rent.r_end_date && this.rent.r_distance && this.rent.r_price && this.rent.r_recp_img) {
       this.http.post('http://localhost:8083/rents', this.rent)
         .subscribe(response => {
-          console.log('Rent added:', response);
+          window.location.reload();
           this.alertMessage = 'Rent details added successfully';
           this.alertType = 'success';
-          this.resetForm();
         }, error => {
           console.error('Failed to add rent:', error);
           this.alertMessage = 'Failed to add rent details';

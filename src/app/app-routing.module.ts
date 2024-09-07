@@ -11,7 +11,7 @@ import { AddRentComponent } from './components/add-rent/add-rent.component';
 import { SingelVehiclePageComponent } from './components/singel-vehicle-page/singel-vehicle-page.component';
 
 const routes: Routes = [
-  {path: '', component:HomeComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {path: 'home', component:HomeComponent},
   {path: 'login', component:LoginComponent},
   {path: 'manage/managemaintenance', component:ManageMaintanceComponent},

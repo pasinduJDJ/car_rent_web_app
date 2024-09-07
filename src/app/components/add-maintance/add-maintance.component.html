@@ -42,8 +42,8 @@
                                 </div>
                                 <div>
                                     <label for="m_date" class="form-label">Maintenance Date</label>
-                                    <input type="date" [(ngModel)]="maintance.m_date" class="form-control" id="m_date" name="m_date" autocomplete="off" required>
-                                    <div *ngIf="VehicleForm.controls['m_date']?.invalid && VehicleForm.controls['m_date']?.touched" class="text-danger">
+                                    <input type="date" [(ngModel)]="maintance.m_date" class="form-control" id="m_date" name="m_date" autocomplete="off" required [max]="maxDate">
+                                    <div *ngIf="VehicleForm.controls['m_date']?.invalid && VehicleForm.controls['m_date']?.touched " class="text-danger" >
                                         Maintenance date is required.
                                     </div>
                                 </div>

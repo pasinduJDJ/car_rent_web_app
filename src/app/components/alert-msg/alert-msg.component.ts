@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-alert-msg',
@@ -11,5 +11,16 @@ export class AlertMsgComponent {
 
   closeAlert() {
     this.message = null;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['message'] && this.message) {
+      this.autoDismiss();
+    }
+  }
+  autoDismiss() {
+    setTimeout(() => {
+      this.message = null;
+    }, 2500); // 4 seconds
   }
 }

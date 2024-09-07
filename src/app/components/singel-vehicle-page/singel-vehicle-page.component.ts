@@ -3,29 +3,32 @@ import { ActivatedRoute } from '@angular/router';
 import { CarService } from '../../service/car.service';
 import { MaintanceService } from '../../service/maintance.service';
 import { RentService } from '../../service/rent.service';
-import * as XLSX from 'xlsx'; 
+import * as XLSX from 'xlsx';
+
 @Component({
   selector: 'app-singel-vehicle-page',
   templateUrl: './singel-vehicle-page.component.html',
-  styleUrl: './singel-vehicle-page.component.css'
+  styleUrls: ['./singel-vehicle-page.component.css'] // Plural corrected
 })
 export class SingelVehiclePageComponent implements OnInit {
 
-  constructor(private route:ActivatedRoute , private carService:CarService ,private maintainService: MaintanceService, private rentService:RentService){}
+  constructor(private route: ActivatedRoute, private carService: CarService, private maintainService: MaintanceService, private rentService: RentService) { }
 
-  car_id: number | null = null; 
-  car:any = null;
-  car_no: string | undefined ; 
-  maintances:any []=[];
+  car_id: number | null = null;
+  car: any = null;
+  car_no: string | undefined;
+  maintances: any[] = [];
   rents: any[] = [];
   totalIncome: number = 0;
   totalMaintance: number = 0;
+  filteredRents: any[] = [];
+  filteredMaintenances: any[] = [];
 
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.car_id = +id; 
+      this.car_id = +id;
       console.log(this.car_id);
       this.loadCarData();
     }
@@ -38,9 +41,8 @@ export class SingelVehiclePageComponent implements OnInit {
         (response) => {
           this.car = response;
           console.log(this.car);
-          // Save the car registration number to local storage
           if (this.car && this.car.car_reg_no) {
-            this.car_no=this.car.car_reg_no;
+            this.car_no = this.car.car_reg_no;
             this.loadMaintainData(this.car_no);
             this.loadRentData(this.car_no);
           }
@@ -53,46 +55,98 @@ export class SingelVehiclePageComponent implements OnInit {
       console.error('Car ID is null');
     }
   }
-  
 
-  loadMaintainData(car_reg_number:any) {
-    console.log(car_reg_number);
+  loadMaintainData(car_reg_number: any) {
     this.maintainService.getMaintanceByCarNumber(car_reg_number).subscribe(
-      (maintances)=>{
-        if(maintances.length>0){
-          this.maintances = maintances;
-          this.calculateTotalMaintance();
-        }else{
-          console.log("please Check Vehicle Number");
-          this.maintances = [];
-        }  
-      },(error) =>{
-        console.log('Error fetching Maintance',error)
+      (maintances) => {
+        this.maintances = maintances;
+        this.filteredMaintenances = [...this.maintances];
+        this.calculateTotalMaintance();
+      },
+      (error) => {
+        console.error('Error fetching Maintenance', error);
       }
-    )
+    );
   }
+
+  filterMaintenanceData(event: Event) {
+    const filterType = (event.target as HTMLSelectElement).value;
+    const now = new Date();
+
+    this.filteredMaintenances = this.maintances.filter(maintenance => {
+      const maintenanceDate = new Date(maintenance.m_date);
+      switch (filterType) {
+        case 'week':
+          return this.isWithinLastWeek(maintenanceDate, now);
+        case 'month':
+          return this.isWithinLastMonth(maintenanceDate, now);
+        case 'year':
+          return this.isWithinLastYear(maintenanceDate, now);
+        default:
+          return true;
+      }
+    });
+    this.totalMaintance = this.filteredMaintenances.reduce(
+      (sum, maintenance) => sum + (parseFloat(maintenance.m_price) || 0), 0 // Fallback for invalid data
+    );
+  }
+
+  isWithinLastWeek(date: Date, now: Date): boolean {
+    const oneWeekAgo = new Date(now);
+    oneWeekAgo.setDate(now.getDate() - 7);
+    return date >= oneWeekAgo && date <= now;
+  }
+
+  isWithinLastMonth(date: Date, now: Date): boolean {
+    const oneMonthAgo = new Date(now);
+    oneMonthAgo.setMonth(now.getMonth() - 1);
+    return date >= oneMonthAgo && date <= now;
+  }
+
+  isWithinLastYear(date: Date, now: Date): boolean {
+    const oneYearAgo = new Date(now);
+    oneYearAgo.setFullYear(now.getFullYear() - 1);
+    return date >= oneYearAgo && date <= now;
+  }
+
   calculateTotalMaintance() {
-    this.totalMaintance = this.maintances.reduce((sum, maintance) => sum + parseFloat(maintance.m_price), 0);
+    this.totalMaintance = this.maintances.reduce((sum, maintance) => sum + (parseFloat(maintance.m_price) || 0), 0);
   }
-  
-  loadRentData(car_reg_no:any){
+
+  loadRentData(car_reg_no: any) {
     this.rentService.getRentByCarNumber(car_reg_no).subscribe(
       (rents) => {
-        if (rents.length > 0) {
-          this.rents = rents;
-          this.calculateTotalIncome();
-        } else {
-          console.log("please Check Vehicle Number");
-          this.rents = [];
-        }
-      }, (error) => {
-        console.log('Error fetching rents', error)
+        this.rents = rents;
+        this.filteredRents = [...this.rents];
+        this.calculateTotalIncome();
+      },
+      (error) => {
+        console.error('Error fetching rents', error);
       }
     )
+  }
+
+  filterRentData(event: Event) {
+    const filterType = (event.target as HTMLSelectElement).value;
+    const now = new Date();
+    this.filteredRents = this.rents.filter(rent => {
+      const rentDate = new Date(rent.r_start_date);
+      switch (filterType) {
+        case 'week':
+          return this.isWithinLastWeek(rentDate, now);
+        case 'month':
+          return this.isWithinLastMonth(rentDate, now);
+        case 'year':
+          return this.isWithinLastYear(rentDate, now);
+        default:
+          return true;
+      }
+    });
+    this.totalIncome = this.filteredRents.reduce((sum, rent) => sum + (parseFloat(rent.r_price) || 0), 0);
   }
 
   calculateTotalIncome() {
-    this.totalIncome = this.rents.reduce((sum, rent) => sum + parseFloat(rent.r_price), 0);
+    this.totalIncome = this.rents.reduce((sum, rent) => sum + (parseFloat(rent.r_price) || 0), 0);
   }
 
   openImage(imageUrl: string) {
@@ -102,34 +156,33 @@ export class SingelVehiclePageComponent implements OnInit {
       popup.document.close();
     }
   }
+
   downloadRentData() {
-    const truncatedRents = this.rents.map(rent => ({
+    const truncatedRents = this.filteredRents.map(rent => ({
       r_start_date: rent.r_start_date,
       r_end_date: rent.r_end_date,
       r_distance: rent.r_distance,
       r_price: rent.r_price,
     }));
-  
+
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(truncatedRents, { header: ["r_start_date", "r_end_date", "r_distance", "r_price"] });
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Rents");
-  
+
     XLSX.writeFile(wb, 'IncomeData.xlsx');
   }
 
-  downloadMaintainData(){
-    const truncatedMaintances = this.maintances.map(maintance => ({
+  downloadMaintainData() {
+    const truncatedMaintances = this.filteredMaintenances.map(maintance => ({
       m_description: maintance.m_description,
       m_date: maintance.m_date,
       m_price: maintance.m_price,
     }));
-  
+
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(truncatedMaintances, { header: ["m_description", "m_date", "m_price"] });
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Maintance");
-  
+
     XLSX.writeFile(wb, 'MaintanceData.xlsx');
   }
-  
-
 }
