@@ -99,7 +99,6 @@ export class ManageRentServiceComponent {
           this.loadRent();
           this.alertMessage='Rent updated successfully';
           this.alertType='success';
-          window.location.reload();
         },
         (error) => {
           this.alertMessage='Error updating Rent';

@@ -1,0 +1,119 @@
+<div class="col">
+    <div class="container align-items-center justify-content-center">
+        <div class="row">
+            <h4 class="text-center fw-bolder mt-5">Select Vehicle </h4>
+            <div class="d-flex justify-content-center align-items-centerm  mt-2">
+                <form class="row g-3" (ngSubmit)="findcar()">
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
+                            value="Enter Vehicle Number : ">
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" id="car_reg_number" placeholder="CBB4725"
+                            name="car_reg_number" [(ngModel)]="car_reg_number">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn text-white mb-3" style="background-color: #003049;">Confirm
+                            identity</button>
+                    </div>
+                </form>
+            </div>
+            <div class="px-5">
+                <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
+            </div>
+        </div>
+        <div class="row">
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <div class=" card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
+                    <div class="container">
+                        <p class="h4 fw-bolder text-center my-3" style="color: #003049;">Rent Manage Form</p>
+                        <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm" novalidate>
+                            <div>
+                                <div class="">
+                                    <label for="rent_payment" class="form-label">Rent Payment</label>
+                                    <input type="number" [(ngModel)]="rentcar.rent_payment" class="form-control"
+                                        id="rent_payment" name="rent_payment" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['rent_payment']?.invalid && VehicleForm.controls['rent_payment']?.touched"
+                                        class="text-danger">
+                                        Rent Payment is required.
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <label for="pay_date" class="form-label">Pay Out Date</label>
+                                    <input type="date" [(ngModel)]="rentcar.pay_date" class="form-control"
+                                        id="pay_date" name="pay_date" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['pay_date']?.invalid && VehicleForm.controls['pay_date']?.touched"
+                                        class="text-danger">
+                                        Pay Out date is required.
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <label for="month" class="form-label">Payment Month</label>
+                                    <input type="text" [(ngModel)]="rentcar.month" class="form-control"
+                                        id="month" name="month" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['month']?.invalid && VehicleForm.controls['month']?.touched"
+                                        class="text-danger">
+                                        Please enter a Payment month.
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <label for="payment_bill" class="form-label">Payment Receipts Upload</label>
+                                    <span style="width: 60px; height: 60px;" class="mb-2 ms-5">
+                                        <img  alt="Payment Recept" *ngIf="rentcar.payment_bill" [src]="rentcar.payment_bill"
+                                            class="maintance-image" />
+                                    </span>
+                                    <input type="file" class="form-control" (change)="onFileChange($event)"
+                                        accept="image/*" autocomplete="off">
+                                    <div *ngIf="VehicleForm.controls['payment_bill']?.invalid && VehicleForm.controls['payment_bill']?.touched"
+                                        class="text-danger">
+                                        Payment receipt image is required.
+                                    </div>
+                                </div>
+                                <div class="text-center mt-4 mb-2">
+                                    <button type="submit" class="btn px-5 text-white"
+                                        style="background-color: #003049;">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="container">
+            <div class="card p-2 mt-5 mb-5" style="border-radius: 20px;">
+                <div class="table-responsive ">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th scope="col">Rent Payment</th>
+                                <th scope="col">Pay Out Date</th>
+                                <th scope="col">Month</th>
+                                <th scope="col">Payment Receipts </th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let rentcar of rentcars ">
+                                <th>{{rentcar.rent_payment}}</th>
+                                <td>{{rentcar.pay_date}}</td>
+                                <td>{{rentcar.month}}</td>
+                                <td><img *ngIf="rentcar.payment_bill" [src]="rentcar.payment_bill" alt="Rent Receipts"
+                                        class="maintance-image" /></td>
+                                <td>
+                                    <button class="btn me-2 " style="background-color: #FFBA08;"
+                                    (click)="fillForm(rentcar.rentcar_id)">Update</button>
+                                    <button class="btn btn-danger" style="background-color: #D00000;"
+                                    (click)="deleteRentCar(rentcar.rentcar_id)" >Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

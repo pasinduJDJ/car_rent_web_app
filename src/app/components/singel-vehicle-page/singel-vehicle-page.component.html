@@ -2,7 +2,7 @@
   <div class="col">
     <div class="row mt-5">
       <div class="container lgbox  py-md-3 mx-2">
-        <div class="d-flex flex-column flex-md-row align-items-left">
+        <div class="d-flex flex-column flex-md-row align-items-center">
           <div class="imgbox mb-3 mb-md-0 mx-md-5 ">
             <img style="border-radius: 20px;" [src]="car.car_img" class="img-fluid" alt="Vehicle Image">
           </div>
@@ -51,7 +51,7 @@
           <table class="table ">
             <thead>
               <tr>
-                <th scope="col" class="text-center">Start Date</th>
+                <th scope="col" class="text-center">Start Date</th> 
                 <th scope="col" class="text-center">End Date</th>
                 <th scope="col" class="text-center">Distance <span style="font-size: small;">(Km)</span></th>
                 <th scope="col" class="text-center">Income <span style="font-size: small;"> (LKR)</span></th>
@@ -61,7 +61,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let rent of filteredRents ">
-                <th class="text-center">{{rent.r_start_date}}</th>
+                <th class="text-center ">{{rent.r_start_date}}</th>
                 <td class="text-center">{{rent.r_end_date}}</td>
                 <td class="text-center">{{rent.r_distance}} </td>
                 <td class="text-center">{{rent.r_price}} </td>

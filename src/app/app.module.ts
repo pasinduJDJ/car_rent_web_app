@@ -17,6 +17,8 @@ import { AddMaintanceComponent } from './components/add-maintance/add-maintance.
 import { VehicalCardComponent } from './components/vehical-card/vehical-card.component';
 import { SingelVehiclePageComponent } from './components/singel-vehicle-page/singel-vehicle-page.component';
 import { AlertMsgComponent } from './components/alert-msg/alert-msg.component';
+import { AddCarRentComponent } from './components/add-car-rent/add-car-rent.component';
+import { ManageCarRentComponent } from './components/manage-car-rent/manage-car-rent.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AlertMsgComponent } from './components/alert-msg/alert-msg.component';
     AddMaintanceComponent,
     VehicalCardComponent,
     SingelVehiclePageComponent,
-    AlertMsgComponent
+    AlertMsgComponent,
+    AddCarRentComponent,
+    ManageCarRentComponent
   ],
   imports: [
     BrowserModule,
