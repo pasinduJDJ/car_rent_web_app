@@ -2,23 +2,21 @@
     <div class="row">
         <h4 class="text-center fw-bolder mt-5">Select Vehicle</h4>
         <div class="d-flex justify-content-center align-items-center mt-2">
-            <form class="row g-3" >
+            <form class="row g-3" (ngSubmit)="findcar()">
                 <div class="col-auto">
-                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2"
-                        value="Enter Vehicle Number : ">
+                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Enter Vehicle Number : ">
                 </div>
                 <div class="col-auto">
-                    <input type="text" class="form-control" id="car_reg_number" placeholder="CBB4725"
-                        name="car_reg_number"  required>
+                    <input type="text" class="form-control" id="car_reg_number" placeholder="CBB4725" name="car_reg_number"
+                        [(ngModel)]="car_reg_number" required>
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn text-white mb-3" style="background-color: #003049;">Confirm
-                        identity</button>
+                    <button type="submit" class="btn text-white mb-3" style="background-color: #003049;">Confirm identity</button>
                 </div>
             </form>
         </div>
         <div class="px-5">
-            <app-alert-msg ></app-alert-msg>
+            <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
         </div>
     </div>
     <div class="row mb-4">
@@ -26,17 +24,17 @@
             <div class="card col-10 col-md-7 col-lg-5 col-xl-4 back-color" style="border-radius: 20px;">
                 <div class="container">
                     <p class="h4 fw-bolder text-center my-3 mb-4" style="color: #003049;">Add Rent Car PaymentForm</p>
-                    <form  #VehicleForm="ngForm" novalidate>
+                    <form (ngSubmit)="onSubmit()" #VehicleForm="ngForm" novalidate>
                         <div>
                             <div class="">
                                 <label for="m_car_no" class="form-label">Car Register No <span
                                         style="font-size: small;">(Number Plate)</span></label>
-                                <input type="text"  class="form-control" id="m_car_no"
+                                <input type="text" [(ngModel)]="rentcar.car_reg_no" class="form-control" id="m_car_no"
                                     name="m_car_no" autocomplete="off" disabled>
                             </div>
                             <div class=""></div>
                                 <label for="rent_payment" class="form-label">Rent Payment</label>
-                                <input type="text"  class="form-control"
+                                <input type="text" [(ngModel)]="rentcar.rent_payment" class="form-control"
                                     id="rent_payment" name="rent_payment" autocomplete="off" required>
                                 <div *ngIf="VehicleForm.controls['rent_payment']?.invalid && VehicleForm.controls['rent_payment']?.touched" class="text-danger">
                                     Rent start date is required.
@@ -44,25 +42,40 @@
                             </div>
                             <div class="">
                                 <label for="payout_date" class="form-label">Payout Date</label>
-                                <input type="date"  class="form-control"
+                                <input type="date" [(ngModel)]="rentcar.pay_date" class="form-control"
                                     id="payout_date" name="payout_date" autocomplete="off" required>
                                 <div *ngIf="VehicleForm.controls['payout_date']?.invalid && VehicleForm.controls['payout_date']?.touched" class="text-danger">
                                     Rent start date is required.
                                 </div>
                             </div>
                             <div class="">
-                                <label for="month" class="form-label">Rent Month</label>
-                                <input type="text"  class="form-control"
-                                    id="month" name="month" autocomplete="off" required>
-                                <div *ngIf="VehicleForm.controls['month']?.invalid && VehicleForm.controls['month']?.touched" class="text-danger">
-                                    Rent end date is required.
+                                <label for="month" class="form-label">Payment Month</label>
+                                <select [(ngModel)]="rentcar.month" class="form-control" id="month" name="month"
+                                    autocomplete="off">
+                                    <option Owen=""></option>
+                                    <option Owen="January">January</option>
+                                    <option Owen="February">February</option>
+                                    <option Owen="March">March</option>
+                                    <option Owen="April">April</option>
+                                    <option Owen="May">May</option>
+                                    <option Owen="June">June</option>
+                                    <option Owen="July">July</option>
+                                    <option Owen="August">August</option>
+                                    <option Owen="September">September</option>
+                                    <option Owen="October">October</option>
+                                    <option Owen="November">November</option>
+                                    <option Owen="December">December</option>
+                                </select>
+                                <div *ngIf="VehicleForm.controls['month']?.invalid && VehicleForm.controls['month']?.touched"
+                                    class="text-danger">
+                                    Please select a payment month.
                                 </div>
                             </div>
                             <div class="">
-                                <label for="p_recp_img" class="form-label">Payment Receipts Upload</label>
-                                <input type="file" class="form-control" 
+                                <label for="payment_bill" class="form-label">Payment Receipts Upload</label>
+                                <input type="file" [(ngModel)]="rentcar.payment_bill" (change)="onFileChange($event)" class="form-control" 
                                     accept="image/*" autocomplete="off" required>
-                                <div *ngIf="VehicleForm.controls['p_recp_img']?.invalid && VehicleForm.controls['p_recp_img']?.touched" class="text-danger">
+                                <div *ngIf="VehicleForm.controls['payment_bill']?.invalid && VehicleForm.controls['payment_bill']?.touched" class="text-danger">
                                     Rent receipt image is required.
                                 </div>
                             </div>

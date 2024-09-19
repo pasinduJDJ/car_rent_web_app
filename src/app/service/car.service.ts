@@ -9,6 +9,7 @@ export interface CarResponse{
   "car_model": string;
   "car_type": string;
   "car_manufacture_year": number;
+  "ownership": String;
   "car_img": any;
 }
 

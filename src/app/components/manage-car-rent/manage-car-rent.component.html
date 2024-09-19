@@ -40,8 +40,8 @@
                                 </div>
                                 <div class="">
                                     <label for="pay_date" class="form-label">Pay Out Date</label>
-                                    <input type="date" [(ngModel)]="rentcar.pay_date" class="form-control"
-                                        id="pay_date" name="pay_date" autocomplete="off">
+                                    <input type="date" [(ngModel)]="rentcar.pay_date" class="form-control" id="pay_date"
+                                        name="pay_date" autocomplete="off">
                                     <div *ngIf="VehicleForm.controls['pay_date']?.invalid && VehicleForm.controls['pay_date']?.touched"
                                         class="text-danger">
                                         Pay Out date is required.
@@ -49,18 +49,33 @@
                                 </div>
                                 <div class="">
                                     <label for="month" class="form-label">Payment Month</label>
-                                    <input type="text" [(ngModel)]="rentcar.month" class="form-control"
-                                        id="month" name="month" autocomplete="off">
+                                    <select [(ngModel)]="rentcar.month" class="form-control" id="month" name="month"
+                                        autocomplete="off">
+                                        <option Owen=""></option>
+                                        <option Owen="January">January</option>
+                                        <option Owen="February">February</option>
+                                        <option Owen="March">March</option>
+                                        <option Owen="April">April</option>
+                                        <option Owen="May">May</option>
+                                        <option Owen="June">June</option>
+                                        <option Owen="July">July</option>
+                                        <option Owen="August">August</option>
+                                        <option Owen="September">September</option>
+                                        <option Owen="October">October</option>
+                                        <option Owen="November">November</option>
+                                        <option Owen="December">December</option>
+                                    </select>
                                     <div *ngIf="VehicleForm.controls['month']?.invalid && VehicleForm.controls['month']?.touched"
                                         class="text-danger">
-                                        Please enter a Payment month.
+                                        Please select a payment month.
                                     </div>
                                 </div>
+
                                 <div class="">
                                     <label for="payment_bill" class="form-label">Payment Receipts Upload</label>
                                     <span style="width: 60px; height: 60px;" class="mb-2 ms-5">
-                                        <img  alt="Payment Recept" *ngIf="rentcar.payment_bill" [src]="rentcar.payment_bill"
-                                            class="maintance-image" />
+                                        <img alt="Payment Recept" *ngIf="rentcar.payment_bill"
+                                            [src]="rentcar.payment_bill" class="maintance-image" />
                                     </span>
                                     <input type="file" class="form-control" (change)="onFileChange($event)"
                                         accept="image/*" autocomplete="off">
@@ -103,9 +118,9 @@
                                         class="maintance-image" /></td>
                                 <td>
                                     <button class="btn me-2 " style="background-color: #FFBA08;"
-                                    (click)="fillForm(rentcar.rentcar_id)">Update</button>
+                                        (click)="fillForm(rentcar.rentcar_id)">Update</button>
                                     <button class="btn btn-danger" style="background-color: #D00000;"
-                                    (click)="deleteRentCar(rentcar.rentcar_id)" >Delete</button>
+                                        (click)="deleteRentCar(rentcar.rentcar_id)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

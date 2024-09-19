@@ -21,6 +21,7 @@ export class AddVehicleComponent {
     car_model: '',
     car_type: '',
     car_manufacture_year: '',
+    ownership:'',
     car_img: '',
   }
 
@@ -36,7 +37,7 @@ export class AddVehicleComponent {
   }
 
   onSubmit() {
-    if (this.vehicle.car_reg_no && this.vehicle.car_brand && this.vehicle.car_model && this.vehicle.car_type && this.vehicle.car_manufacture_year && this.vehicle.car_img) {
+    if (this.vehicle.car_reg_no && this.vehicle.car_brand && this.vehicle.car_model && this.vehicle.car_type && this.vehicle.car_manufacture_year && this.vehicle.car_img && this.vehicle.ownership) {
       this.http.post('http://localhost:8083/cars', this.vehicle)
         .subscribe(response => {
           window.location.reload();

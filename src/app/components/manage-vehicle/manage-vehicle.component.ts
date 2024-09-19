@@ -18,6 +18,7 @@ export class ManageVehicleComponent implements OnInit {
     car_model: '',
     car_type: '',
     car_manufacture_year: '',
+    ownership: '',
     car_img: '',
   }
   vehicles: any[] = [];
@@ -75,7 +76,7 @@ export class ManageVehicleComponent implements OnInit {
       this.carService.updateCar(this.vehicle).subscribe(
         (response) => {
           console.log(this.vehicle);
-          this.vehicle = { car_reg_no: '', car_brand: '', car_model: '', car_type: '', car_manufacture_year: '', car_img: '' };
+          this.vehicle = { car_reg_no: '', car_brand: '', car_model: '', car_type: '', car_manufacture_year: '', car_img: '',ownership: ''};
           this.loadAllVehicles();
           this.alertMessage='Vehicle updated successfully';
           this.alertType='success';

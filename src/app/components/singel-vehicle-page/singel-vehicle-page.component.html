@@ -22,6 +22,9 @@
             <div class="row">
               <h6>Vehicle Number: <span class="text-danger" style="font-weight: bolder;">{{car.car_reg_no}}</span></h6>
             </div>
+            <div class="row">
+              <a class="btn btn-danger px-3 " style="max-width: 25%;font-weight: 700;">Rent Vehicle</a>
+            </div>
           </div>
         </div>
       </div>
@@ -31,27 +34,34 @@
       <div class="row">
         <div class="col">
           <h6 style="font-weight: bold; color: #780000;" class="mb-2">Total Income : <span>{{totalIncome |
-          number:'1.2-2'}}</span></h6>
+              number:'1.2-2'}}</span></h6>
         </div>
         <span class="col text-end">
-          <button class="btn text-white" style="background-color: #003049;" (click)="downloadRentData()">Download Income Data</button>
+          <button class="btn text-white" style="background-color: #003049;" (click)="downloadRentData()">Download Income
+            Data</button>
         </span>
       </div>
-      <div class="filter-options mb-3">
-        <label for="rentFilter" class="me-2">Filter by :</label>
-        <select id="rentFilter" (change)="filterRentData($event)" class="px-2" style="border-radius: 10px;">
-          <option value="all">All</option>
-          <option value="week">Last Week</option>
-          <option value="month">Last Month</option>
-          <option value="year">Last Year</option>
-        </select>
+
+      <div class="row mb-4">
+        <div class="col">
+          <div class="filter-options d-flex align-items-center">
+            <label for="rentFilter" class="me-2">Filter by Rent:</label>
+            <select id="rentFilter" class="form-select w-auto" (change)="filterRentData($event)">
+              <option value="all">All</option>
+              <option value="week">Last Week</option>
+              <option value="month">Last Month</option>
+              <option value="year">Last Year</option>
+            </select>
+          </div>
+        </div>
       </div>
+
       <div class="card p-2 mb-2" style="border-radius: 20px;">
         <div class="table-responsive ">
           <table class="table ">
             <thead>
               <tr>
-                <th scope="col" class="text-center">Start Date</th> 
+                <th scope="col" class="text-center">Start Date</th>
                 <th scope="col" class="text-center">End Date</th>
                 <th scope="col" class="text-center">Distance <span style="font-size: small;">(Km)</span></th>
                 <th scope="col" class="text-center">Income <span style="font-size: small;"> (LKR)</span></th>
@@ -61,11 +71,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let rent of filteredRents ">
-                <th class="text-center ">{{rent.r_start_date}}</th>
+                <td class="text-center ">{{rent.r_start_date}}</td>
                 <td class="text-center">{{rent.r_end_date}}</td>
                 <td class="text-center">{{rent.r_distance}} </td>
                 <td class="text-center">{{rent.r_price}} </td>
-                <td class="text-center"><img *ngIf="rent.r_recp_img" [src]="rent.r_recp_img" alt="Rent Receipts" class="maintance-image" />
+                <td class="text-center"><img *ngIf="rent.r_recp_img" [src]="rent.r_recp_img" alt="Rent Receipts"
+                    class="maintance-image" />
                 </td>
                 <td class="text-center">
                   <button class="btn text-white px-3 bg-danger" *ngIf="rent.r_recp_img"
@@ -78,28 +89,35 @@
       </div>
     </div>
 
+
     <div class="row my-5">
       <h4 style="font-weight: bold; " class="mb-2">All Maintances Details</h4>
       <div class="row">
         <div class="col">
-          <h6 style="font-weight: bold; color: #780000;" class="mb-2">Full Maintance Cost : {{totalMaintance |
-        number:'1.2-2'}}</h6>
+          <h6 style="font-weight: bold; color: #780000;" class="">Full Maintance Cost: {{totalMaintance |
+            number:'1.2-2'}}</h6>
         </div>
         <span class="col text-end">
-          <button class="btn text-white" style="background-color: #003049;"(click)="downloadMaintainData()">Download Maintance Data</button>
+          <button class="btn text-white" style="background-color: #003049;" (click)="downloadMaintainData()">Download
+            Maintance Data</button>
         </span>
       </div>
 
-      <div class="filter-options mb-3">
-        <label for="maintenanceFilter" class="me-2">Filter by :</label>
-        <select id="maintenanceFilter" (change)="filterMaintenanceData($event)" class="px-2" style="border-radius: 10px;">
-          <option value="all">All</option>
-          <option value="week">Last Week</option>
-          <option value="month">Last Month</option>
-          <option value="year">Last Year</option>
-        </select>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="filter-options d-flex align-items-center">
+            <label for="maintenanceFilter" class="me-2">Filter by:</label>
+            <select id="maintenanceFilter" class="form-select w-auto" (change)="filterMaintenanceData($event)">
+              <option value="all">All</option>
+              <option value="week">Last Week</option>
+              <option value="month">Last Month</option>
+              <option value="year">Last Year</option>
+            </select>
+          </div>
+        </div>
       </div>
-      
+
+
       <div class="card p-2" style="border-radius: 20px;">
         <div class="table-responsive ">
           <table class="table ">
@@ -115,11 +133,11 @@
             </thead>
             <tbody>
               <tr *ngFor="let maintance of filteredMaintenances">
-                <th class="text-center">{{maintance.m_description}}</th>
+                <td class="text-center">{{maintance.m_description}}</td>
                 <td class="text-center">{{maintance.m_date}}</td>
                 <td class="text-center">{{maintance.m_price}}</td>
-                <td class="text-center"><img *ngIf="maintance.m_mant_img" [src]="maintance.m_mant_img" alt="Maintenance Image"
-                    class="maintance-image" /></td>
+                <td class="text-center"><img *ngIf="maintance.m_mant_img" [src]="maintance.m_mant_img"
+                    alt="Maintenance Image" class="maintance-image" /></td>
                 <td class="text-center">
                   <button class="btn text-white px-3 bg-danger" *ngIf="maintance.m_mant_img"
                     (click)="openImage(maintance.m_mant_img)">View Receipt</button>
@@ -130,5 +148,63 @@
         </div>
       </div>
     </div>
+
+    <div *ngIf="car.ownership == 'Rent Vehicle'" class="row my-2 final-secsion">
+      <h4 style="font-weight: bold; " class="mb-2">Rent VehiclePayment Details</h4>
+      <div class="row"></div>
+      <div class="col">
+        <h6 style="font-weight: bold; color: #780000;" class="">Total Rent Cost: {{totalRentPayment |
+          number:'1.2-2'}}</h6>
+      </div>
+      <span class="col text-end">
+        <button class="btn text-white" style="background-color: #003049;" (click)="downloadRentPaymentData()">Download
+          Rent Payment Data</button>
+      </span>
+    </div>
+
+
+    <div class="row mb-4">
+      <div class="col">
+        <div class="filter-options d-flex align-items-center">
+          <label for="rentCarFilter" class="me-2">Filter by:</label>
+          <select id="rentCarFilter" class="form-select w-auto" (change)="filterRentCarData($event)">
+            <option value="all">All</option>
+            <option value="week">Last Week</option>
+            <option value="month">Last Month</option>
+            <option value="year">Last Year</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="car.ownership == 'Rent Vehicle'" class="card p-2 mb-5" style="border-radius: 20px;">
+      <div class="table-responsive ">
+        <table class="table ">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">Rent Payment</th>
+              <th scope="col" class="text-center">Pay Out Date</th>
+              <th scope="col" class="text-center">Month</th>
+              <th scope="col" class="text-center">Payment Receipts </th>
+              <th scope="col" class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rentcar of filteredRentCars">
+              <td class="text-center">{{rentcar.rent_payment}}</td>
+              <td class="text-center">{{rentcar.pay_date}}</td>
+              <td class="text-center">{{rentcar.month}}</td>
+              <td class="text-center"><img *ngIf="rentcar.payment_bill" [src]="rentcar.payment_bill" alt="Rent Receipts"
+                  class="maintance-image" /></td>
+              <td class="text-center">
+                <button class="btn text-white px-3 bg-danger" *ngIf="rentcar.payment_bill"
+                  (click)="openImage(rentcar.payment_bill)">View Receipt</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>

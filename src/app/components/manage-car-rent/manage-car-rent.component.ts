@@ -10,8 +10,8 @@ import { CarService } from '../../service/car.service';
 export class ManageCarRentComponent implements OnInit {
 
   car_reg_number: string = '';
-  rentcars:any []=[];
-  selectedRentcars:any = null;
+  rentcars: any[] = [];
+  selectedRentcars: any = null;
   alertMessage: string | null = null;
   alertType: 'success' | 'danger' = 'success';
 
@@ -22,25 +22,25 @@ export class ManageCarRentComponent implements OnInit {
     month: '',
     payment_bill: '',
   }
-  constructor(private carRentService: CarrentService, private carService:CarService) { }
+  constructor(private carRentService: CarrentService, private carService: CarService) { }
 
   ngOnInit(): void {
   }
 
-  loadCarRentPayment(){
+  loadCarRentPayment() {
     console.log(this.car_reg_number);
     this.carRentService.getRentCarByCarNumber(this.car_reg_number).subscribe(
-      (rentcars)=>{
-        if(rentcars.length>0){
-          this.rentcars=rentcars;
-        }else{
+      (rentcars) => {
+        if (rentcars.length > 0) {
+          this.rentcars = rentcars;
+        } else {
           this.rentcars = [];
-          this.car_reg_number= '';
+          this.car_reg_number = '';
           this.alertMessage = 'Vehicle Number Not Match or no Payments Previously';
           this.alertType = 'danger';
         }
-      },(error) =>{
-        console.log('Error fetching Maintance',error)
+      }, (error) => {
+        console.log('Error fetching Maintance', error)
       }
     )
   }
@@ -67,14 +67,14 @@ export class ManageCarRentComponent implements OnInit {
     }
   }
 
-  fillForm(rentcar_id:number){
+  fillForm(rentcar_id: number) {
     console.log(rentcar_id);
     this.carRentService.getRentCarByID(rentcar_id).subscribe(
       (res) => {
         console.log(res);
         this.selectedRentcars = res;
         if (this.selectedRentcars) {
-          this.rentcar = { ...this.selectedRentcars }; 
+          this.rentcar = { ...this.selectedRentcars };
         }
       },
       (error) => {
@@ -83,33 +83,34 @@ export class ManageCarRentComponent implements OnInit {
     );
   }
 
-  deleteRentCar(rentcar_id :number) {
+  deleteRentCar(rentcar_id: number) {
     this.carRentService.deleteRentCar(rentcar_id).subscribe(
-      ()=>{
+      () => {
         this.loadCarRentPayment();
       }
     )
   }
 
   onSubmit() {
-    if (this.rentcar.rent_payment && this.rentcar.pay_date && this.rentcar.month ) {
+    if (this.rentcar.rent_payment && this.rentcar.pay_date && this.rentcar.month) {
       this.carRentService.updateRentCar(this.rentcar).subscribe(
         (response) => {
           console.log(this.rentcar);
-          this.rentcar = { car_reg_no:'', rent_payment: '', pay_date: '', month: '', payment_bill: ''};
+          this.rentcar = { car_reg_no: '', rent_payment: '', pay_date: '', month: '', payment_bill: '' };
           this.loadCarRentPayment();
-          this.alertMessage='Payments updated successfully';
-          this.alertType='success';
+          this.alertMessage = 'Payments updated successfully';
+          this.alertType = 'success';
         },
         (error) => {
-          this.alertMessage='Error updating Payment';
-          this.alertType='danger';
+          this.alertMessage = 'Error updating Payment';
+          this.alertType = 'danger';
         }
       );
-    }else {
+    } else {
       this.alertMessage = 'Please fill out all fields correctly.';
       this.alertType = 'danger';
     }
   }
+
 
 }
