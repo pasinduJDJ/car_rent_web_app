@@ -1,17 +1,25 @@
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4" style="width: 22rem;">
-        <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
-        <h3 class="text-center pb-4 fw-bolder" style="color: #780000;">Sign In.</h3>
-        <form (ngSubmit)="login()">
+<div  style="height: 90vh;">
+    <div class="row h-100 justify-content-center align-items-center">
+      <div class="col-md-4 d-flex justify-content-end">
+        <img src="assets/svg/logo.svg" alt="logo" height="190">
+      </div>
+      <div class="col-md-5 d-flex align-items-center justify-content-center">
+        <div class="card p-4" style="width: 22rem;height: 20rem;">
+          <app-alert-msg [message]="alertMessage" [alertType]="alertType"></app-alert-msg>
+          <h3 class="text-center pb-4 fw-bolder" style="color: #780000;">Sign In</h3>
+          <form (ngSubmit)="login()">
             <div class="mb-3">
-                <label for="">Email address</label>
-                <input type="email" class="form-control" [(ngModel)]="username" name="username" id="username">
+              <label for="">Email address</label>
+              <input type="email" class="form-control" [(ngModel)]="username" name="username" id="username">
             </div>
             <div class="mb-3">
-                <label for="">Password</label>
-                <input type="password" class="form-control" [(ngModel)]="userpassword" name="userpassword" id="userpassword">
+              <label for="">Password</label>
+              <input type="password" class="form-control" [(ngModel)]="userpassword" name="userpassword" id="userpassword">
             </div>
-            <button type="submit" class="btn  w-100  mt-3" style="background-color:#003049;color: #ffff;" >Next</button>
-        </form>
+            <button type="submit" class="btn w-100 mt-3" style="background-color:#003049;color: #ffff;">Next</button>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

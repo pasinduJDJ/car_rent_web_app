@@ -34,11 +34,9 @@ export class ManageVehicleComponent implements OnInit {
     this.carService.getCar().subscribe(
       (vehicles) => {
         this.vehicles = vehicles;
-        // Log to check the format of car_img
         console.log('Vehicle images:', this.vehicles.map(v => v.car_img));
       },
       (error) => {
-        console.error('Error fetching vehicles:', error);
         this.alertMessage='Please Check Conection or Not Add Vehicle';
         this.alertType='danger';
         
@@ -59,14 +57,12 @@ export class ManageVehicleComponent implements OnInit {
   fillForm(car_id: number) {
     this.carService.getCarById(car_id).subscribe(
       (res) => {
-        console.log(res);
         this.selectedvehicle = res;
         if (this.selectedvehicle) {
           this.vehicle = { ...this.selectedvehicle };
         }
       },
       (error) => {
-        console.error('Error fetching vehicle:', error);
       }
     );
   }
@@ -75,12 +71,10 @@ export class ManageVehicleComponent implements OnInit {
     if (this.vehicle.car_reg_no && this.vehicle.car_brand && this.vehicle.car_model && this.vehicle.car_type && this.vehicle.car_manufacture_year && this.vehicle.car_img){
       this.carService.updateCar(this.vehicle).subscribe(
         (response) => {
-          console.log(this.vehicle);
           this.vehicle = { car_reg_no: '', car_brand: '', car_model: '', car_type: '', car_manufacture_year: '', car_img: '',ownership: ''};
           this.loadAllVehicles();
           this.alertMessage='Vehicle updated successfully';
           this.alertType='success';
-          window.location.reload();
         },
         (error) => {
           this.alertMessage='Error updating vehicle';

@@ -29,7 +29,6 @@ export class ManageMaintanceComponent implements OnInit {
   }
 
   loadMaintance() {
-    console.log(this.car_reg_number);
     this.maintainService.getMaintanceByCarNumber(this.car_reg_number).subscribe(
       (maintances)=>{
         if(maintances.length>0){
@@ -41,20 +40,16 @@ export class ManageMaintanceComponent implements OnInit {
           this.alertType = 'danger';
         }  
       },(error) =>{
-        console.log('Error fetching Maintance',error)
       }
     )
   }
 
   findcar() {
-    console.log('Vehicle Registration Number:', this.car_reg_number);
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
-        console.log('Vehicle registration number saved successfully', response);
         this.loadMaintance()
       },
       error => {
-        console.error('Error saving vehicle registration number', error);
       }
     );
   }
@@ -71,17 +66,14 @@ export class ManageMaintanceComponent implements OnInit {
   }
 
   fillForm(m_id:number){
-    console.log(m_id);
     this.maintainService.getMaintanceById(m_id).subscribe(
       (res) => {
-        console.log(res);
         this.selectedmaintances = res;
         if (this.selectedmaintances) {
           this.maintance = { ...this.selectedmaintances }; 
         }
       },
       (error) => {
-        console.error('Error fetching vehicle:', error);
       }
     );
   }
@@ -90,11 +82,10 @@ export class ManageMaintanceComponent implements OnInit {
     if (this.maintance.m_description && this.maintance.m_date && this.maintance.m_price && this.maintance.m_mant_img) {
       this.maintainService.updateMaintance(this.maintance).subscribe(
         (response) => {
-          console.log(this.maintance);
-          this.maintance = { m_description: '', m_date: '', m_price: '', m_car_no: '', m_mant_img: ''};
           this.loadMaintance();
           this.alertMessage='Maintance updated successfully';
           this.alertType='success';
+          this.resetForm();
         },
         (error) => {
           this.alertMessage='Error updating Rent';
@@ -105,6 +96,9 @@ export class ManageMaintanceComponent implements OnInit {
       this.alertMessage = 'Please fill out all fields correctly.';
       this.alertType = 'danger';
     }
+  }
+  resetForm() {
+    this.maintance = { m_description: '', m_date: '', m_price: '', m_car_no: this.car_reg_number, m_mant_img: '' };
   }
 
   deleteMinatnce(m_id :number) {

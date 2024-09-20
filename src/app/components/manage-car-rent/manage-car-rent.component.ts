@@ -28,7 +28,6 @@ export class ManageCarRentComponent implements OnInit {
   }
 
   loadCarRentPayment() {
-    console.log(this.car_reg_number);
     this.carRentService.getRentCarByCarNumber(this.car_reg_number).subscribe(
       (rentcars) => {
         if (rentcars.length > 0) {
@@ -40,19 +39,15 @@ export class ManageCarRentComponent implements OnInit {
           this.alertType = 'danger';
         }
       }, (error) => {
-        console.log('Error fetching Maintance', error)
       }
     )
   }
   findcar() {
-    console.log('Vehicle Registration Number:', this.car_reg_number);
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
-        console.log('Vehicle registration number saved successfully', response);
         this.loadCarRentPayment()
       },
       error => {
-        console.error('Error saving vehicle registration number', error);
       }
     );
   }
@@ -68,17 +63,14 @@ export class ManageCarRentComponent implements OnInit {
   }
 
   fillForm(rentcar_id: number) {
-    console.log(rentcar_id);
     this.carRentService.getRentCarByID(rentcar_id).subscribe(
       (res) => {
-        console.log(res);
         this.selectedRentcars = res;
         if (this.selectedRentcars) {
           this.rentcar = { ...this.selectedRentcars };
         }
       },
       (error) => {
-        console.error('Error fetching vehicle:', error);
       }
     );
   }
@@ -95,11 +87,10 @@ export class ManageCarRentComponent implements OnInit {
     if (this.rentcar.rent_payment && this.rentcar.pay_date && this.rentcar.month) {
       this.carRentService.updateRentCar(this.rentcar).subscribe(
         (response) => {
-          console.log(this.rentcar);
-          this.rentcar = { car_reg_no: '', rent_payment: '', pay_date: '', month: '', payment_bill: '' };
-          this.loadCarRentPayment();
           this.alertMessage = 'Payments updated successfully';
           this.alertType = 'success';
+          this.resetForm();
+          this.loadCarRentPayment();
         },
         (error) => {
           this.alertMessage = 'Error updating Payment';
@@ -110,6 +101,16 @@ export class ManageCarRentComponent implements OnInit {
       this.alertMessage = 'Please fill out all fields correctly.';
       this.alertType = 'danger';
     }
+  }
+
+  resetForm(){
+    this.rentcar = {
+      car_reg_no: '',
+      rent_payment: '',
+      pay_date: '',
+      month: '',
+      payment_bill: '',
+    };
   }
 
 

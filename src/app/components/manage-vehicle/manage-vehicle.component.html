@@ -46,7 +46,7 @@
           <div class="mb-3">
             <label for="car_manufacture_year" class="form-label">Manufacture Year</label>
             <input type="number" class="form-control" [(ngModel)]="vehicle.car_manufacture_year"
-              id="car_manufacture_year" name="car_manufacture_year" autocomplete="off" required>
+              id="car_manufacture_year" name="car_manufacture_year" autocomplete="off" >
             <div
               *ngIf="VehicleForm.controls['car_manufacture_year']?.invalid && VehicleForm.controls['car_manufacture_year']?.touched"
               class="text-danger">

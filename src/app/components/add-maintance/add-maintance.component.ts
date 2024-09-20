@@ -31,7 +31,6 @@ export class AddMaintanceComponent implements OnInit{
   maxDate : String='';
 
   findcar() {
-    console.log('Vehicle Registration Number:', this.car_reg_number);
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
         if (response && Array.isArray(response) && response.length > 0) {
@@ -39,14 +38,13 @@ export class AddMaintanceComponent implements OnInit{
           this.alertMessage = 'Add Maintance under this Vehicle Number';
           this.alertType = 'success';
         } else {
-          this.alertMessage = 'Vehicle registration number not found';
+          this.alertMessage = 'Vehicle not found Please Check again';
           this.alertType = 'danger';
         }
       },
       error => {
-        this.alertMessage = 'Vehicle registration number not found';
+        this.alertMessage = 'Vehicle not found Please Check again-';
         this.alertType = 'danger';
-        console.error('Error retrieving vehicle registration number:', error);
       }
     );
   }
@@ -66,9 +64,9 @@ export class AddMaintanceComponent implements OnInit{
     if (this.maintance.m_description && this.maintance.m_date && this.maintance.m_price && this.maintance.m_mant_img) {
       this.http.post('http://localhost:8083/maintains', this.maintance)
         .subscribe(response => {
-          window.location.reload();
           this.alertMessage = 'Maintenance record added successfully';
           this.alertType = 'success';
+          this.resetForm();
         }, error => {
           this.alertMessage = 'Failed to add maintenance record';
           this.alertType = 'danger';

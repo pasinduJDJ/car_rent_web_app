@@ -29,7 +29,6 @@ export class AddCarRentComponent {
   }
 
   findcar() {
-    console.log('Vehicle Registration Number:', this.car_reg_number);
     this.carService.getCarByName(this.car_reg_number).subscribe(
       response => {
         if (response && Array.isArray(response) && response.length > 0) {
@@ -44,7 +43,6 @@ export class AddCarRentComponent {
       error => {
         this.alertMessage = 'Vehicle registration number not found';
         this.alertType = 'danger';
-        console.error('Error retrieving vehicle registration number:', error);
       }
     );
   }
@@ -63,9 +61,9 @@ export class AddCarRentComponent {
     if (this.rentcar.car_reg_no && this.rentcar.month && this.rentcar.pay_date && this.rentcar.rent_payment && this.rentcar.payment_bill) {
       this.http.post('http://localhost:8083/rentCars', this.rentcar)
         .subscribe(response => {
-          window.location.reload();
           this.alertMessage = 'Rent Payment record added successfully';
           this.alertType = 'success';
+          this.resetForm();
         }, error => {
           this.alertMessage = 'Failed to add Rent Payment record';
           this.alertType = 'danger';
@@ -74,5 +72,15 @@ export class AddCarRentComponent {
       this.alertMessage = 'Please fill out all fields correctly.';
       this.alertType = 'danger';
     }
+  }
+
+  resetForm(){
+    this.rentcar = {
+      car_reg_no: '',
+      rent_payment: '',
+      pay_date: '',
+      month: '',
+      payment_bill: '',
+    };
   }
 }

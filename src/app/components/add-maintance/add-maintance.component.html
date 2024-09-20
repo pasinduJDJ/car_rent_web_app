@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="m_price" class="form-label">Maintenance Price</label>
+                                    <label for="m_price" class="form-label">Maintenance Cost</label>
                                     <input type="number" [(ngModel)]="maintance.m_price" class="form-control" id="m_price" name="m_price" autocomplete="off" required min="0">
                                     <div *ngIf="VehicleForm.controls['m_price']?.invalid && VehicleForm.controls['m_price']?.touched" class="text-danger">
                                         Please enter a valid price.

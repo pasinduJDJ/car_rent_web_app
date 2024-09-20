@@ -6,12 +6,7 @@
             </div>
             <div class="fullbox text-start mt-lg-5">
                 <div class="row">
-                    <div class="col">
-                        <h5 style="font-weight: bold;"> {{vehical.car_model}}</h5>
-                    </div>
-                    <span class="col-12 col-md-4 justify-content-end" *ngIf="vehical.ownership == 'Rent Vehicle'">
-                        <p class="px-3 fw-bold" style="color: #780000;" >Rent Car</p>
-                    </span>
+                    <h5 style="font-weight: bold;"> {{vehical.car_model}} <span *ngIf="vehical.ownership == 'Rent Vehicle'" style="color: #780000; font-size: medium;" >( Rent Vehicle )</span></h5>
                 </div>
                 <div class="row">
                     <h6><span>Brand Name :</span> {{vehical.car_brand}}</h6>
