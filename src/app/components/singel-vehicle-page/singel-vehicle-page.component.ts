@@ -36,7 +36,6 @@ export class SingelVehiclePageComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.car_id = +id;
-      console.log(this.car_id);
       this.loadCarData();
     }
   }
@@ -44,45 +43,35 @@ export class SingelVehiclePageComponent implements OnInit {
   // after find vehicle id load car details
   loadCarData() {
     if (this.car_id !== null) {
-      console.log('Vehicle Registration Number:', this.car_id);
       this.carService.getCarById(this.car_id).subscribe(
         (response) => {
           this.car = response;
-          console.log(this.car);
           if (this.car && this.car.car_reg_no) {
             this.car_no = this.car.car_reg_no;
             this.ownership = this.car.ownership;
-            console.log(this.ownership);
             this.loadMaintainData(this.car_no);
             this.loadRentData(this.car_no);
             this.loadRentCarData(this.car_no);
-
           }
         },
         error => {
-          console.error('Error loading car Data', error);
         }
       );
     } else {
-      console.error('Car ID is null');
     }
   }
 
-  // load Rent car details
   loadRentCarData(car_number: any) {
     this.carRentService.getRentCarByCarNumber(car_number).subscribe(
       (rentcars) => {
         this.rentcars = rentcars;
-        this.filteredRentCars = [...this.rentcars]; // Initialize filtered array
+        this.filteredRentCars = [...this.rentcars]; 
         this.calculateTotalRentPayment();
       },
       (error) => {
-        console.log('Error fetching Rent Cars', error);
       }
     );
   }
-
-
 
   // load car maintenance details
   loadMaintainData(car_reg_number: any) {
@@ -93,7 +82,6 @@ export class SingelVehiclePageComponent implements OnInit {
         this.calculateTotalMaintance();
       },
       (error) => {
-        console.error('Error fetching Maintenance', error);
       }
     );
   }
@@ -107,7 +95,6 @@ export class SingelVehiclePageComponent implements OnInit {
         this.calculateTotalIncome();
       },
       (error) => {
-        console.error('Error fetching rents', error);
       }
     )
   }
@@ -130,14 +117,10 @@ export class SingelVehiclePageComponent implements OnInit {
           return true;
       }
     });
-
-    console.log(this.filteredMaintenances);  // Check the filtered data in the console
-
     this.totalMaintance = this.filteredMaintenances.reduce(
       (sum, maintenance) => sum + parseFloat(maintenance.m_price), 0
     );
   }
-
 
   // Filter Rent Data 
   filterRentData(event: Event) {
@@ -157,18 +140,15 @@ export class SingelVehiclePageComponent implements OnInit {
           return true;
       }
     });
-
-    // Correcting the total income calculation
     this.totalIncome = this.filteredRents.reduce((sum, rent) => sum + parseFloat(rent.r_price), 0);
   }
 
   filterRentCarData(event: Event) {
     const filterType = (event.target as HTMLSelectElement).value;
-    console.log('Filter type selected:', filterType); // Log the selected filter type
     const now = new Date();
 
     this.filteredRentCars = this.rentcars.filter(rentcar => {
-      const rentCarDate = new Date(rentcar.pay_date); // Correct variable name
+      const rentCarDate = new Date(rentcar.pay_date); 
       switch (filterType) {
         case 'week':
           return this.isWithinLastWeek(rentCarDate, now);
@@ -180,12 +160,8 @@ export class SingelVehiclePageComponent implements OnInit {
           return true;
       }
     });
-
-    // Correcting the total rent payment calculation
     this.totalRentPayment = this.filteredRentCars.reduce((sum, rentcar) => sum + parseFloat(rentcar.rent_payment), 0);
   }
-
-
 
   isWithinLastWeek(date: Date, now: Date): boolean {
     const oneWeekAgo = new Date(now);
